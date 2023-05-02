@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-04-30T01:38:24.643482+00:00",
+  "timestamp": "2023-05-02T01:35:03.222771+00:00",
   "repo": "awoie/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -49,7 +49,72 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOJbVClc5kzo78",
+      "title": "Normatively define both cases when payload is vanilla JSON and JSON-LD.",
+      "url": "https://github.com/awoie/draft-terbu-sd-jwt-vc/issues/2",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "would be good to normatively define both cases when payload is vanilla JSON and JSON-LD - IETF SD-JWT document only gives non-normative examples in 4a and 4b.",
+      "createdAt": "2023-05-01T19:37:22Z",
+      "updatedAt": "2023-05-01T19:39:20Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOJbVClc5kzsXf",
+      "title": "defining `type` claim to be usable beyond SD-JWT-VC",
+      "url": "https://github.com/awoie/draft-terbu-sd-jwt-vc/issues/3",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "`type` JWT claim should be defined in a way that makes it usable not only with SD-JWT-VC, but any other JSON based Credential Format like JWT-VC.",
+      "createdAt": "2023-05-01T19:51:36Z",
+      "updatedAt": "2023-05-01T19:51:36Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOJbVClc5kzuY5",
+      "title": "Define transformation logic back to the base data model in W3C VCDM 2.0.",
+      "url": "https://github.com/awoie/draft-terbu-sd-jwt-vc/issues/4",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "- omitting `type` claim in Presentation and treating it as a default value `VerifiablePresentations`",
+      "createdAt": "2023-05-01T19:58:25Z",
+      "updatedAt": "2023-05-01T19:58:25Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOJbVClc5k0NP6",
+      "title": "guidance around the `sub` claim.",
+      "url": "https://github.com/awoie/draft-terbu-sd-jwt-vc/issues/5",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "\u201dsub\u201d Claim MAY be supported by the Issuer. There is no requirement for a binding to exist between `sub` and `cnf` claims.",
+      "createdAt": "2023-05-01T21:13:44Z",
+      "updatedAt": "2023-05-01T21:13:44Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
