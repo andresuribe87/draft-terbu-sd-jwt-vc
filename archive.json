@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-05-02T01:35:03.222771+00:00",
+  "timestamp": "2023-05-04T01:26:30.266441+00:00",
   "repo": "awoie/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -110,9 +110,17 @@
       "labels": [],
       "body": "\u201dsub\u201d Claim MAY be supported by the Issuer. There is no requirement for a binding to exist between `sub` and `cnf` claims.",
       "createdAt": "2023-05-01T21:13:44Z",
-      "updatedAt": "2023-05-01T21:13:44Z",
+      "updatedAt": "2023-05-02T05:48:00Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "OWNER",
+          "body": "That makes sense.",
+          "createdAt": "2023-05-02T05:48:00Z",
+          "updatedAt": "2023-05-02T05:48:00Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -128,13 +136,13 @@
       "labels": [],
       "body": "",
       "createdAt": "2023-04-27T09:45:58Z",
-      "updatedAt": "2023-04-27T09:45:58Z",
+      "updatedAt": "2023-05-02T14:14:51Z",
       "baseRepository": "awoie/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "0bd5b91af069299e1e5959451e1d62d015e5e693",
       "headRepository": "awoie/draft-terbu-sd-jwt-vc",
       "headRefName": "awoie/feat-initi",
-      "headRefOid": "be32da3f07c918e6c2623a57ad27de218a48de6f",
+      "headRefOid": "d8349bf5232f65351e702e5336b85878c7c0ed0a",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
