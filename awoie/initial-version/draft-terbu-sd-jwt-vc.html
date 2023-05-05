@@ -1292,13 +1292,23 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-validation-rules-and-proces">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-validation-rules-and-proces" class="section-name selfRef">Validation Rules and Processing</a>
       </h2>
-<p id="section-6-1">TBD<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">A verifier MUST validate an SD-JWT-VC as follows:<a href="#section-6-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6-2.1">REQUIRED. Verify the SD-JWT-VC as per SD-JWT.<a href="#section-6-2.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-6-2.2">REQUIRED. Perform Issuer Authentication as described in Section TBD.<a href="#section-6-2.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-6-2.3">OPTIONAL. If <code>status</code> is present in the SD-JWT-VC, the status of the SD-JWT-VC SHOULD be checked. It depends on the verifier policy to reject or accept an SD-JWT-VC based on the status of the Verifiable Credential.<a href="#section-6-2.3" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="section-6-3">Additional validation rules MAY apply but their use is out-of-scope of this specification.<a href="#section-6-3" class="pilcrow">¶</a></p>
 <div id="issuer-authentication">
 <section id="section-6.1">
         <h3 id="name-issuer-authentication">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-issuer-authentication" class="section-name selfRef">Issuer Authentication</a>
         </h3>
-<p id="section-6.1-1">TBD<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">Verifiers processing SD-JWT-VCs MUST verify the signature of the SD-JWT with the public key of the SD-JWT-VC issuer. This makes sure that the SD-JWT-VC was issued by the SD-JWT-VC issuer and that it has not been tampered with since issuance.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">The <code>iss</code> claim in the SD-JWT-VC MAY be used to retrieve the public key from the JWT Issuer Metadata configuration (as defined in Section TBD) of the SD-JWT-VC issuer. A verifier MAY use alternative methods to obtain the public key to verify the signature of the SD-JWT.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="jwt-issuer-metadata">
@@ -1306,7 +1316,54 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-jwt-issuer-metadata">
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-jwt-issuer-metadata" class="section-name selfRef">JWT Issuer Metadata</a>
         </h3>
-<p id="section-6.2-1">TBD<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-1">This specification defines the JWT Issuer Metadata to retrieve the JWT Issuer Metadata configuration of the JWT Issuer of the JWT. The JWT Issuer is identified by the <code>iss</code> claim in the JWT. Use of the JWT Issuer Metadata is OPTIONAL.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">JWT Issuers publishing JWT Issuer Metadata MUST make a JWT Issuer Metadata configuration available at the path formed by concatenating the string <code>/.well-known/jwt-issuer</code> to the <code>iss</code> claim value in the JWT. The <code>iss</code> MUST be a case-sensitive URL using the HTTPS scheme that contains scheme, host and, optionally, port number and path components, but no query or fragment components.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-3">The JWT Issuer Metadata configuration MUST be a JSON document compliant with this specification and MUST be returned using the application/json content type.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.2-4">This specification defines the following JWT Issuer Metadata parameters:<a href="#section-6.2-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.2-5.1">
+            <p id="section-6.2-5.1.1"><code>jwks_uri</code><a href="#section-6.2-5.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.2-5.1.2.1">OPTIONAL. URL string referencing the JWT Issuer's JSON Web Key (JWK) Set [RFC7517] document, which contains the JWT Issuer's public keys. The value of this field MUST point to a valid JWK Set document. Use of this parameter is preferred over the <code>jwks</code> parameter, as it allows for easier key rotation. JWT Issuer MUST include either <code>jwks_uri</code> or <code>jwks</code> in their JWT Issuer Metadata. <code>jwks_uri</code> and <code>jwks</code> MUST NOT both be present in the same JWT Issuer Metadata.<a href="#section-6.2-5.1.2.1" class="pilcrow">¶</a>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-6.2-5.2">
+            <p id="section-6.2-5.2.1"><code>jwks</code><a href="#section-6.2-5.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.2-5.2.2.1">OPTIONAL. JWT Issuer's JSON Web Key Set [RFC7517] document value, which contains the JWT Issuer's public keys. The value of this field MUST be a JSON object containing a valid JWK Set. This parameter is intended to be used by JWT Issuer that cannot use the <code>jwks_uri</code> parameter. JWT Issuer MUST include either <code>jwks_uri</code> or <code>jwks</code> in their JWT Issuer Metadata. <code>jwks_uri</code> and <code>jwks</code> MUST NOT both be present in the same JWT Issuer Metadata.<a href="#section-6.2-5.2.2.1" class="pilcrow">¶</a>
+</li>
+            </ul>
+</li>
+        </ul>
+<p id="section-6.2-6">It is RECOMMENDED that the JWT contains a <code>kid</code> JWT header parameter that can be used to lookup the public key in the JWK Set included by value or referenced in the JWT Issuer Metadata.<a href="#section-6.2-6" class="pilcrow">¶</a></p>
+<p id="section-6.2-7">The following is a non-normative example of a JWT Issuer Metadata including <code>jwks</code>:<a href="#section-6.2-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.2-8">
+<pre>{
+   "jwks":{
+      "keys":[
+         {
+            "e":"AQAB",
+            "n":"nj3YJwsLUFl9BmpAbkOswCNVx17Eh9wMO-_AReZwBqfaWFcfG
+   HrZXsIV2VMCNVNU8Tpb4obUaSXcRcQ-VMsfQPJm9IzgtRdAY8NN8Xb7PEcYyk
+   lBjvTtuPbpzIaqyiUepzUXNDFuAOOkrIol3WmflPUUgMKULBN0EUd1fpOD70p
+   RM0rlp_gg_WNUKoW1V-3keYUJoXH9NztEDm_D2MQXj9eGOJJ8yPgGL8PAZMLe
+   2R7jb9TxOCPDED7tY_TU4nFPlxptw59A42mldEmViXsKQt60s1SLboazxFKve
+   qXC_jpLUt22OC6GUG63p-REw-ZOr3r845z50wMuzifQrMI9bQ",
+            "kty":"RSA"
+         }
+      ]
+   }
+}
+</pre><a href="#section-6.2-8" class="pilcrow">¶</a>
+</div>
+<p id="section-6.2-9">The following is a non-normative example of a JWT Issuer Metadata including <code>jwks_uri</code>:<a href="#section-6.2-9" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.2-10">
+<pre>{
+   "jwks_uri":"https://jwt-issuer.example.org/my_public_keys.jwks"
+}
+</pre><a href="#section-6.2-10" class="pilcrow">¶</a>
+</div>
 </section>
 </div>
 </section>
