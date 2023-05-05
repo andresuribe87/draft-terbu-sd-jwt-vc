@@ -1122,10 +1122,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-payload" class="internal xref">Payload</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.1">
-                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-usage-of-registered-jwt-cla" class="internal xref">Usage of registered JWT Claims</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-status-claim" class="internal xref"><code>status</code> claim</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.2">
-                    <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-status-claim" class="internal xref">"status" Claim</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="auto internal xref">5.2.2</a>.  <a href="#name-type-claim" class="internal xref"><code>type</code> claim</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.3">
+                    <p id="section-toc.1-1.5.2.2.2.3.1"><a href="#section-5.2.3" class="auto internal xref">5.2.3</a>.  <a href="#name-usage-of-registered-jwt-cla" class="internal xref">Usage of registered JWT Claims</a></p>
 </li>
                 </ul>
 </li>
@@ -1274,21 +1277,92 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-payload">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-payload" class="section-name selfRef">Payload</a>
         </h3>
-<p id="section-5.2-1">TBD<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<div id="usage-of-registered-jwt-claims">
+<p id="section-5.2-1">SD-JWT-VCs as defined in this specification can use any claim registered in the “JSON Web Token Claims” registry as defined in RFC 7519.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">Some of the claims in a VC MUST NOT be selectively disclosed as they are always required for processing on the verifier side. All other claims can be made selectively disclosable by the issuer when issuing the respective SD-JWT-VC.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">SD-JWT-VCs MAY contain additional claims depending on the application.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<div id="status-claim">
 <section id="section-5.2.1">
-          <h4 id="name-usage-of-registered-jwt-cla">
-<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-usage-of-registered-jwt-cla" class="section-name selfRef">Usage of registered JWT Claims</a>
+          <h4 id="name-status-claim">
+<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-status-claim" class="section-name selfRef"><code>status</code> claim</a>
           </h4>
-<p id="section-5.2.1-1">TBD<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-1">TBD: might get removed once other draft spec finished<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="status-claim">
+<div id="type-claim">
 <section id="section-5.2.2">
-          <h4 id="name-status-claim">
-<a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-status-claim" class="section-name selfRef">"status" Claim</a>
+          <h4 id="name-type-claim">
+<a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-type-claim" class="section-name selfRef"><code>type</code> claim</a>
           </h4>
-<p id="section-5.2.2-1">TBD: might get removed once other draft spec finished<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.2-1">TBD<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="usage-of-registered-jwt-claims">
+<section id="section-5.2.3">
+          <h4 id="name-usage-of-registered-jwt-cla">
+<a href="#section-5.2.3" class="section-number selfRef">5.2.3. </a><a href="#name-usage-of-registered-jwt-cla" class="section-name selfRef">Usage of registered JWT Claims</a>
+          </h4>
+<p id="section-5.2.3-1">The following are non-selectively disclosable registered JWT claims that SD-JWT-VCs contain for specific purposes:<a href="#section-5.2.3-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2.3-2.1">
+              <p id="section-5.2.3-2.1.1"><code>iss</code><a href="#section-5.2.3-2.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2.3-2.1.2.1">REQUIRED. The issuer of the Verifiable Credential. The value of <code>iss</code> MUST be a URI. See [JWT] for more information.<a href="#section-5.2.3-2.1.2.1" class="pilcrow">¶</a>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-5.2.3-2.2">
+              <p id="section-5.2.3-2.2.1"><code>iat</code><a href="#section-5.2.3-2.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2.3-2.2.2.1">REQUIRED. The time of issuance of the Verifiable Credential.<a href="#section-5.2.3-2.2.2.1" class="pilcrow">¶</a>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-5.2.3-2.3">
+              <p id="section-5.2.3-2.3.1"><code>nbf</code><a href="#section-5.2.3-2.3.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2.3-2.3.2.1">REQUIRED. The time before which the SD-JWT-VC MUST NOT be accepted before validating.<a href="#section-5.2.3-2.3.2.1" class="pilcrow">¶</a>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-5.2.3-2.4">
+              <p id="section-5.2.3-2.4.1"><code>exp</code><a href="#section-5.2.3-2.4.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2.3-2.4.2.1">REQUIRED. The expiry time of the Verifiable Credential after which the proof of the Verifiable Credential is no longer valid.<a href="#section-5.2.3-2.4.2.1" class="pilcrow">¶</a>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-5.2.3-2.5">
+              <p id="section-5.2.3-2.5.1"><code>cnf</code><a href="#section-5.2.3-2.5.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2.3-2.5.2.1">OPTIONAL. The confirmation method can be used to verify the Holder Binding JWT of the disclosed SD-JWT.<a href="#section-5.2.3-2.5.2.1" class="pilcrow">¶</a>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-5.2.3-2.6">
+              <p id="section-5.2.3-2.6.1"><code>type</code><a href="#section-5.2.3-2.6.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2.3-2.6.2.1">REQUIRED. The type or types of the Verifiable Credential. In the general case, the <code>type</code> value is an array of case-sensitive strings, each containing a <code>StringOrURI</code> value. In the special case when the SD-JWT has one credential type, the <code>type</code> value MAY be a single case-sensitive string containing a <code>StringOrURI</code> value.<a href="#section-5.2.3-2.6.2.1" class="pilcrow">¶</a>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-5.2.3-2.7">
+              <p id="section-5.2.3-2.7.1"><code>status</code><a href="#section-5.2.3-2.7.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2.3-2.7.2.1">OPTIONAL. The information on how to read the status of the Verifiable Credential.<a href="#section-5.2.3-2.7.2.1" class="pilcrow">¶</a>
+</li>
+              </ul>
+</li>
+          </ul>
+<p id="section-5.2.3-3">The following are selectively disclosable registered JWT claims that SD-JWT-VCs contain for specific purposes:<a href="#section-5.2.3-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2.3-4.1">
+              <p id="section-5.2.3-4.1.1"><code>sub</code><a href="#section-5.2.3-4.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2.3-4.1.2.1">OPTIONAL. The identifier of the subject of the Verifiable Credential. The value of <code>sub</code> MUST be a URI..<a href="#section-5.2.3-4.1.2.1" class="pilcrow">¶</a>
+</li>
+              </ul>
+</li>
+          </ul>
 </section>
 </div>
 </section>
@@ -1304,7 +1378,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <ul class="normal">
 <li class="normal" id="section-6-2.1">REQUIRED. Verify the SD-JWT-VC as per SD-JWT.<a href="#section-6-2.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-6-2.2">REQUIRED. Perform Issuer Authentication as described in Section TBD.<a href="#section-6-2.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-2.2">REQUIRED. Perform Issuer Authentication as described in {#issuer-authentication}.<a href="#section-6-2.2" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-6-2.3">OPTIONAL. If <code>status</code> is present in the SD-JWT-VC, the status of the SD-JWT-VC SHOULD be checked. It depends on the verifier policy to reject or accept an SD-JWT-VC based on the status of the Verifiable Credential.<a href="#section-6-2.3" class="pilcrow">¶</a>
 </li>
@@ -1316,7 +1390,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-issuer-authentication" class="section-name selfRef">Issuer Authentication</a>
         </h3>
 <p id="section-6.1-1">Verifiers processing SD-JWT-VCs MUST verify the signature of the SD-JWT with the public key of the SD-JWT-VC issuer. This makes sure that the SD-JWT-VC was issued by the SD-JWT-VC issuer and that it has not been tampered with since issuance.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.1-2">The <code>iss</code> claim in the SD-JWT-VC MAY be used to retrieve the public key from the JWT Issuer Metadata configuration (as defined in Section TBD) of the SD-JWT-VC issuer. A verifier MAY use alternative methods to obtain the public key to verify the signature of the SD-JWT.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">The <code>iss</code> claim in the SD-JWT-VC MAY be used to retrieve the public key from the JWT Issuer Metadata configuration (as defined in {#jwt-issuer-metadata}) of the SD-JWT-VC issuer. A verifier MAY use alternative methods to obtain the public key to verify the signature of the SD-JWT.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="jwt-issuer-metadata">
