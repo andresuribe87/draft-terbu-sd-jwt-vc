@@ -1,7 +1,7 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-05-04T01:26:30.266441+00:00",
-  "repo": "awoie/draft-terbu-sd-jwt-vc",
+  "timestamp": "2023-05-07T01:40:46.775169+00:00",
+  "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
       "name": "bug",
@@ -54,23 +54,38 @@
       "number": 2,
       "id": "I_kwDOJbVClc5kzo78",
       "title": "Normatively define both cases when payload is vanilla JSON and JSON-LD.",
-      "url": "https://github.com/awoie/draft-terbu-sd-jwt-vc/issues/2",
-      "state": "OPEN",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/2",
+      "state": "CLOSED",
       "author": "Sakurann",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "would be good to normatively define both cases when payload is vanilla JSON and JSON-LD - IETF SD-JWT document only gives non-normative examples in 4a and 4b.",
       "createdAt": "2023-05-01T19:37:22Z",
-      "updatedAt": "2023-05-01T19:39:20Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2023-05-05T22:38:49Z",
+      "closedAt": "2023-05-05T22:38:49Z",
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Wouldn't JSON-LD be better suited for a separate spec?",
+          "createdAt": "2023-05-05T17:31:46Z",
+          "updatedAt": "2023-05-05T17:31:46Z"
+        },
+        {
+          "author": "Sakurann",
+          "authorAssociation": "NONE",
+          "body": "yes, agreed. this profile will focus only on JSON with a `typ` value `vc+sd-jwt`",
+          "createdAt": "2023-05-05T22:38:49Z",
+          "updatedAt": "2023-05-05T22:38:49Z"
+        }
+      ]
     },
     {
       "number": 3,
       "id": "I_kwDOJbVClc5kzsXf",
       "title": "defining `type` claim to be usable beyond SD-JWT-VC",
-      "url": "https://github.com/awoie/draft-terbu-sd-jwt-vc/issues/3",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/3",
       "state": "OPEN",
       "author": "Sakurann",
       "authorAssociation": "NONE",
@@ -86,7 +101,7 @@
       "number": 4,
       "id": "I_kwDOJbVClc5kzuY5",
       "title": "Define transformation logic back to the base data model in W3C VCDM 2.0.",
-      "url": "https://github.com/awoie/draft-terbu-sd-jwt-vc/issues/4",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/4",
       "state": "OPEN",
       "author": "Sakurann",
       "authorAssociation": "NONE",
@@ -102,7 +117,7 @@
       "number": 5,
       "id": "I_kwDOJbVClc5k0NP6",
       "title": "guidance around the `sub` claim.",
-      "url": "https://github.com/awoie/draft-terbu-sd-jwt-vc/issues/5",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/5",
       "state": "OPEN",
       "author": "Sakurann",
       "authorAssociation": "NONE",
@@ -110,15 +125,105 @@
       "labels": [],
       "body": "\u201dsub\u201d Claim MAY be supported by the Issuer. There is no requirement for a binding to exist between `sub` and `cnf` claims.",
       "createdAt": "2023-05-01T21:13:44Z",
-      "updatedAt": "2023-05-02T05:48:00Z",
+      "updatedAt": "2023-05-05T22:41:13Z",
       "closedAt": null,
       "comments": [
         {
           "author": "awoie",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "body": "That makes sense.",
           "createdAt": "2023-05-02T05:48:00Z",
           "updatedAt": "2023-05-02T05:48:00Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "So, you are saying we need to define something like: if there is a `sub` and a `cnf`, then the `cnf` should authenticate the `sub`?",
+          "createdAt": "2023-05-05T17:03:31Z",
+          "updatedAt": "2023-05-05T17:03:31Z"
+        },
+        {
+          "author": "Sakurann",
+          "authorAssociation": "NONE",
+          "body": "I am saying that \r\n1. `cnf` is used for cryptographic holder binding.\r\n2. `sub` is used as the user's identifier within the Issuer's namespace.\r\n3. if Issuer chooses to establish a relationship between a `cnf` and a `sub` (such as sub is a JWK thumbprint of a JWK in a cnf claim), but it is not necessary (not sure this even needs to be mentioned in the spec, if so, probably implementation considerations) ",
+          "createdAt": "2023-05-05T22:41:13Z",
+          "updatedAt": "2023-05-05T22:41:13Z"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "I_kwDOJbVClc5lNIdW",
+      "title": "Define terminology of SD-JWT-VC, etc.",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/10",
+      "state": "OPEN",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I think we need to define what the following \"things\" are.\r\n\r\n- What is the Verifiable Credential based on SD-JWTs?\r\n\r\nI believe it is the JWT that contains the `_sd`s. It is not any of the combined formats. This means that the Verifiable Credential MAY NOT contain any disclosable claims, e.g., `name`. Would you agree @tlodderstedt, @Sakurann, Daniel?\r\n\r\nThe VC based on SD-JWT will have the media type `application/vc+sd-jwt`.\r\n\r\n- What is the Verifiable Presentation based on SD-JWTs? It makes sense to define that since the HB JWT has some specific requirements. It also makes sense because protocol developers will need to refer to one term when they exchange presentations or verifiable presentations between issuer <-> holder <-> verifier.\r\n\r\nCan we call the Combined Format for Issuance AND Presentation the Presentation based on SD-JWTs, and if there is HB, then it is a Verifiable Presentation? \r\n\r\nThe VP based SD-JWT will have the media type `application/vp+sd-jwt` altough I'm not sure if this makes sense. Wouldn't it better to have `application/vp+vc+sd-jwt`? Any thoughts on that?",
+      "createdAt": "2023-05-05T17:17:20Z",
+      "updatedAt": "2023-05-05T23:49:15Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Also it is important to note that for OIDC4VP we use Verifiable Presentations in vp_token and we use Verifiable Credentials in OIDC4VCI in the credential response.\r\n\r\nIt probably has the implication that for OIDC4VCI, we will put the VC based on SD-JWT into the credential response, or we define a format identifier for something else. Keep in mind we need to send the disclosures to the client as well. In that regards is the SD-JWT itself the SD-JWT-VC without disclosures, or is the combined format including disclosures the SD-JWT-VC? Or we follow the approach above and we return a combined presentation (no HB) in the credential response and define a credential identifier for that.\r\n\r\nIt probably also means that we would put the VP based on SD-JWT into the OIDC4VP vp_token. \r\n ",
+          "createdAt": "2023-05-05T19:32:26Z",
+          "updatedAt": "2023-05-05T19:39:55Z"
+        },
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "NONE",
+          "body": "We (IDunion) put the combined presentation (+hb jwt) in the vp_token. What else would you expect?",
+          "createdAt": "2023-05-05T19:46:10Z",
+          "updatedAt": "2023-05-05T19:46:10Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> We (IDunion) put the combined presentation (+hb jwt) in the vp_token. What else would you expect?\r\n\r\nThat makes sense, so the VP based on SD-JWT is the combined format for presentation including HB JWT.\r\n\r\nThen, there is the question what would the OIDC4VCI credential response return? And what would be a format identifier? I know that this doesn't have to be answered in this spec but it helps with answering the terminology question.",
+          "createdAt": "2023-05-05T20:11:24Z",
+          "updatedAt": "2023-05-05T20:11:24Z"
+        },
+        {
+          "author": "Sakurann",
+          "authorAssociation": "NONE",
+          "body": "Suggest we not overcomplicate things and say:\n- what is returned in a VP Token in OID4VP is a combined Format for presentation with HB-JWT.\n- what is returned in Credential Response in Credential Response in VCI is combined format for issuance.\n- credential format identifier is 'vc+sd-jwt' for both.\n- Terminology-wise, SD-JWT in the IETF spec is defined as an issuer signed JWS without disclosures. For this profile, the payload of SD-JWT, can be mapped back to a VCDM2.0",
+          "createdAt": "2023-05-05T23:49:15Z",
+          "updatedAt": "2023-05-05T23:49:15Z"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "I_kwDOJbVClc5lNMAL",
+      "title": "`type` is not selectively disclosable",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/11",
+      "state": "OPEN",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently, `type` is not one of the selectively disclosable claims. This might be ok but it might have some privacy implications if a VC has multiple types. Let's assume the following:\r\n\r\nA VC with the types: driver's-license, age-over-18.\r\n\r\nIf the holder discloses only the age, then based on the current specification, the verifier would also know that the age was disclosed from a DL which is probably unnecessary context info since all the verifier needs is to trust the issuer of the VC. Note, the issuer itself might also leak some contextual info as well, so the issue might not need to be mitigated or it might not be entirely possible anyways.\r\n\r\nShould we make `type` selectively disclosable per array entry? Is this even supported by SD-JWT?\r\n\r\n",
+      "createdAt": "2023-05-05T17:31:04Z",
+      "updatedAt": "2023-05-05T18:19:02Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closing this issue since SD-JWT doesn't support selectively disclosing array elements.",
+          "createdAt": "2023-05-05T18:18:34Z",
+          "updatedAt": "2023-05-05T18:18:34Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We might want to add something to privacy considerations about that.",
+          "createdAt": "2023-05-05T18:19:02Z",
+          "updatedAt": "2023-05-05T18:19:02Z"
         }
       ]
     }
@@ -128,25 +233,137 @@
       "number": 1,
       "id": "PR_kwDOJbVClc5PR0JG",
       "title": "Initial version",
-      "url": "https://github.com/awoie/draft-terbu-sd-jwt-vc/pull/1",
-      "state": "OPEN",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/1",
+      "state": "CLOSED",
       "author": "awoie",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-04-27T09:45:58Z",
-      "updatedAt": "2023-05-02T14:14:51Z",
-      "baseRepository": "awoie/draft-terbu-sd-jwt-vc",
+      "updatedAt": "2023-05-05T11:52:08Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "0bd5b91af069299e1e5959451e1d62d015e5e693",
-      "headRepository": "awoie/draft-terbu-sd-jwt-vc",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "headRefName": "awoie/feat-initi",
       "headRefOid": "d8349bf5232f65351e702e5336b85878c7c0ed0a",
-      "closedAt": null,
+      "closedAt": "2023-05-05T11:52:08Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOJbVClc5P2d39",
+      "title": "fix: initial version",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/6",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-05-05T10:32:46Z",
+      "updatedAt": "2023-05-05T12:08:29Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "0bd5b91af069299e1e5959451e1d62d015e5e693",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "awoie/initial-version",
+      "headRefOid": "005fc7a180b9508eb9541a097faf3c1ca98d06a3",
+      "closedAt": "2023-05-05T12:08:29Z",
+      "mergedAt": "2023-05-05T12:08:28Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "77093d2be6491063b7d05755e5c3d7531faf858b"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOJbVClc5P27GF",
+      "title": "fix: fixed readme",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/7",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-05-05T12:14:37Z",
+      "updatedAt": "2023-05-05T12:14:52Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "77093d2be6491063b7d05755e5c3d7531faf858b",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "awoie/fix-readme",
+      "headRefOid": "c34e4fb09d70d1bc75f209b756d1b66c95425512",
+      "closedAt": "2023-05-05T12:14:52Z",
+      "mergedAt": "2023-05-05T12:14:52Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "e3603bc1c00de98ef7aa7947f37c691d94377e86"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOJbVClc5P295C",
+      "title": "feat: added headers",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/8",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-05-05T12:24:46Z",
+      "updatedAt": "2023-05-05T12:25:18Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "e3603bc1c00de98ef7aa7947f37c691d94377e86",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "awoie/header-params",
+      "headRefOid": "0ac6254bc6595da1c13a12b7a10bb12091384d58",
+      "closedAt": "2023-05-05T12:25:18Z",
+      "mergedAt": "2023-05-05T12:25:18Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "2560fd87ff6227ec945123cae055677527d3b386"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOJbVClc5P3DZq",
+      "title": "feat: added payload params",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/9",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-05-05T12:43:23Z",
+      "updatedAt": "2023-05-05T12:44:37Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "2560fd87ff6227ec945123cae055677527d3b386",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "awoie/feat-payload",
+      "headRefOid": "6707a1b246d823992ae2bf6db55a57a9d961233b",
+      "closedAt": "2023-05-05T12:44:37Z",
+      "mergedAt": "2023-05-05T12:44:37Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "10de5de2b6cdcc95f116f6e320897221893be87c"
+      },
       "comments": [],
       "reviews": []
     }
