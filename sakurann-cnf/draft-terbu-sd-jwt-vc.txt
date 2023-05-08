@@ -157,7 +157,7 @@ Table of Contents
    *  cnf
 
       -  OPTIONAL.  The confirmation method as defined in [RFC7800].  It
-         MUST be used when Cryptographic Holder Binding is required.  It
+         MAY be used when Cryptographic Holder Binding is required.  It
          MUST contain a JWK as defined in Section 3.2 of [RFC7800].
          Other representations of the key MUST NOT be used. "kid" (Key
          ID) member MUST be present in the JWK.  Holder Binding JWT in
