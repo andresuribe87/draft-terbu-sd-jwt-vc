@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-05-07T01:40:46.775169+00:00",
+  "timestamp": "2023-05-09T01:35:29.900702+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -125,7 +125,7 @@
       "labels": [],
       "body": "\u201dsub\u201d Claim MAY be supported by the Issuer. There is no requirement for a binding to exist between `sub` and `cnf` claims.",
       "createdAt": "2023-05-01T21:13:44Z",
-      "updatedAt": "2023-05-05T22:41:13Z",
+      "updatedAt": "2023-05-08T08:04:32Z",
       "closedAt": null,
       "comments": [
         {
@@ -148,6 +148,13 @@
           "body": "I am saying that \r\n1. `cnf` is used for cryptographic holder binding.\r\n2. `sub` is used as the user's identifier within the Issuer's namespace.\r\n3. if Issuer chooses to establish a relationship between a `cnf` and a `sub` (such as sub is a JWK thumbprint of a JWK in a cnf claim), but it is not necessary (not sure this even needs to be mentioned in the spec, if so, probably implementation considerations) ",
           "createdAt": "2023-05-05T22:41:13Z",
           "updatedAt": "2023-05-05T22:41:13Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Ok, then we don't really need to say anything about the relationship between `cnf` and `sub` since there can be a relationship or there cannot be a relationship.",
+          "createdAt": "2023-05-08T08:04:32Z",
+          "updatedAt": "2023-05-08T08:04:32Z"
         }
       ]
     },
@@ -208,7 +215,7 @@
       "labels": [],
       "body": "Currently, `type` is not one of the selectively disclosable claims. This might be ok but it might have some privacy implications if a VC has multiple types. Let's assume the following:\r\n\r\nA VC with the types: driver's-license, age-over-18.\r\n\r\nIf the holder discloses only the age, then based on the current specification, the verifier would also know that the age was disclosed from a DL which is probably unnecessary context info since all the verifier needs is to trust the issuer of the VC. Note, the issuer itself might also leak some contextual info as well, so the issue might not need to be mitigated or it might not be entirely possible anyways.\r\n\r\nShould we make `type` selectively disclosable per array entry? Is this even supported by SD-JWT?\r\n\r\n",
       "createdAt": "2023-05-05T17:31:04Z",
-      "updatedAt": "2023-05-05T18:19:02Z",
+      "updatedAt": "2023-05-08T01:15:44Z",
       "closedAt": null,
       "comments": [
         {
@@ -224,8 +231,31 @@
           "body": "We might want to add something to privacy considerations about that.",
           "createdAt": "2023-05-05T18:19:02Z",
           "updatedAt": "2023-05-05T18:19:02Z"
+        },
+        {
+          "author": "TakahikoKawasaki",
+          "authorAssociation": "NONE",
+          "body": "FYI: There is a discussion about Selective Disclosure for array elements.\r\n\r\nhttps://github.com/oauth-wg/oauth-selective-disclosure-jwt/issues/194#issuecomment-1487860648",
+          "createdAt": "2023-05-08T01:15:44Z",
+          "updatedAt": "2023-05-08T01:15:44Z"
         }
       ]
+    },
+    {
+      "number": 13,
+      "id": "I_kwDOJbVClc5lSjvT",
+      "title": "non-selectively disclosable registered JWT claims",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/13",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "currenlty, iss, iat, nbf, exp, cnf, type, status are listed as \"non-selectively disclosable registered JWT claims\".\r\nWhat is the risk of selectively disclosing them? I do not have a strong opinion yet, but wanted to make sure we are making a conscious decision.\r\n",
+      "createdAt": "2023-05-08T01:46:09Z",
+      "updatedAt": "2023-05-08T01:46:09Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -366,6 +396,158 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOJbVClc5P8_Z3",
+      "title": "make nbf optional",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/12",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "I would personally remove it, but will not die on that hill",
+      "createdAt": "2023-05-08T01:43:46Z",
+      "updatedAt": "2023-05-08T01:58:42Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "cc8925f95271ee5df4e011d465fd433b3e635d4e",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "sakuran-nbf",
+      "headRefOid": "384c3493822bbe5cd7cc7e262fdb0b11b1cb0a22",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOJbVClc5P9AKz",
+      "title": "adding text on sub claim",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/14",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "no binding btw sub and cnf necessary",
+      "createdAt": "2023-05-08T01:50:45Z",
+      "updatedAt": "2023-05-08T01:58:28Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "cc8925f95271ee5df4e011d465fd433b3e635d4e",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "sakurann-sub-cnf",
+      "headRefOid": "2840dd585c29edacb5223271a7b9361b918af677",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDOJbVClc5P9AzY",
+      "title": "update the text on cnf claim",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/15",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "need to discuss how much we want to mandate.",
+      "createdAt": "2023-05-08T01:56:10Z",
+      "updatedAt": "2023-05-08T01:58:10Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "cc8925f95271ee5df4e011d465fd433b3e635d4e",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "sakurann-cnf",
+      "headRefOid": "20d39b8a21cf689b8cddef23b75ea12033f36777",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOJbVClc5P9DCp",
+      "title": "add JSON Web Token Claims Registration to IANA",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/16",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-05-08T02:05:17Z",
+      "updatedAt": "2023-05-08T02:05:17Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "cc8925f95271ee5df4e011d465fd433b3e635d4e",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "sakurann-type-claim",
+      "headRefOid": "6c126dbf7b8b7fb7d136dc803994ae7b9fd0352a",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOJbVClc5QBPDR",
+      "title": "Changes from my first pass",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/17",
+      "state": "OPEN",
+      "author": "danielfett",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-05-08T17:07:47Z",
+      "updatedAt": "2023-05-08T17:41:03Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "cc8925f95271ee5df4e011d465fd433b3e635d4e",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "danielfett/first-pass",
+      "headRefOid": "594648da59a16062200817baf03955221f5d88ac",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@danielfett do you know how to fix the build errors?",
+          "createdAt": "2023-05-08T17:41:02Z",
+          "updatedAt": "2023-05-08T17:41:02Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbVClc5UeRzL",
+          "commit": {
+            "abbreviatedOid": "594648d"
+          },
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "great improvement to the spec. thanks a lot!",
+          "createdAt": "2023-05-08T17:39:17Z",
+          "updatedAt": "2023-05-08T17:39:17Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
