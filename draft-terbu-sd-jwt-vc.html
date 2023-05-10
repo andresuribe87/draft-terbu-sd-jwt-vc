@@ -1177,6 +1177,11 @@ express Verifiable Credentials based on the SD-JWT format
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
             <p id="section-toc.1-1.13.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.1">
+                <p id="section-toc.1-1.13.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-json-web-token-claims-regis" class="internal xref">JSON Web Token Claims Registration</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
             <p id="section-toc.1-1.14.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
@@ -1380,7 +1385,7 @@ Verifiable Credentials can be expressed using SD-JWT.<a href="#section-1-4" clas
 <li class="normal" id="section-5.2.3-4.1">
               <p id="section-5.2.3-4.1.1"><code>sub</code><a href="#section-5.2.3-4.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.2.3-4.1.2.1">OPTIONAL. The identifier of the subject of the Verifiable Credential. The value of <code>sub</code> MUST be a URI..<a href="#section-5.2.3-4.1.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.2.3-4.1.2.1">OPTIONAL. The identifier of the subject of the Verifiable Credential. The value of <code>sub</code> MUST be a URI. Issuer MAY use it to provide subject's identifier assigned and maintained by the Issuer. There is no requirement for a binding to exist between <code>sub</code> and <code>cnf</code> claims.<a href="#section-5.2.3-4.1.2.1" class="pilcrow">¶</a>
 </li>
               </ul>
 </li>
@@ -1540,6 +1545,17 @@ Verifiable Credentials can be expressed using SD-JWT.<a href="#section-1-4" clas
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
 <p id="appendix-A-1">TBD<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<div id="json-web-token-claims-registration">
+<section id="appendix-A.1">
+        <h3 id="name-json-web-token-claims-regis">
+<a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-json-web-token-claims-regis" class="section-name selfRef">JSON Web Token Claims Registration</a>
+        </h3>
+<p id="appendix-A.1-1">Claim Name: "type"
+   o  Claim Description: Credential Type
+   o  Change Controller: IESG
+   o  Specification Document(s): Section XXX of this document<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="Acknowledgements">

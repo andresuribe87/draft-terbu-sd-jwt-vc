@@ -44,6 +44,7 @@ Table of Contents
    11. Normative References
    12. Informative References
    Appendix A.  IANA Considerations
+     A.1.  JSON Web Token Claims Registration
    Appendix B.  Acknowledgements
    Appendix C.  Notices
    Appendix D.  Document History
@@ -204,7 +205,10 @@ Table of Contents
    *  sub
 
       -  OPTIONAL.  The identifier of the subject of the Verifiable
-         Credential.  The value of sub MUST be a URI..
+         Credential.  The value of sub MUST be a URI.  Issuer MAY use it
+         to provide subject's identifier assigned and maintained by the
+         Issuer.  There is no requirement for a binding to exist between
+         sub and cnf claims.
 
 6.  Validation Rules and Processing
 
@@ -337,6 +341,12 @@ Table of Contents
 Appendix A.  IANA Considerations
 
    TBD
+
+A.1.  JSON Web Token Claims Registration
+
+   Claim Name: "type" o Claim Description: Credential Type o Change
+   Controller: IESG o Specification Document(s): Section XXX of this
+   document
 
 Appendix B.  Acknowledgements
 
