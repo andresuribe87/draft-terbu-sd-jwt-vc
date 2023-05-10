@@ -9,14 +9,15 @@ TBD                                                             O. Terbu
                                                              10 May 2023
 
 
-         SD-JWT-based Verifiable Credentials with JSON payloads
+       Verifiable Credentials based on SD-JWT with JSON payloads
                       draft-terbu-sd-jwt-vc-latest
 
 Abstract
 
    This specification describes data formats, validation and processing
-   rules to express Verifiable Credentials based on the SD-JWT format
-   (TBD: see oauth-selective-disclosure-jwt) using JSON payloads.
+   rules to express Verifiable Credentials based on the securing
+   mechanisms of SD-JWT (TBD: see oauth-selective-disclosure-jwt) and
+   JSON payloads.
 
 Table of Contents
 
@@ -54,16 +55,11 @@ Table of Contents
 
 1.  Introduction
 
-   A Verifiable Credential is an tamper-evident statement about an
-   entity which is the Subject of the Verifiable Credential created by
-   an Issuer.  Verifiable Credentials are issued to Holders which can
-   present Verifiable Credentials to Verifiers typically in form of
-   Verifiable Presentations.  Verifiers have to trust Issuers to make
-   trustworthy statements about the Subject and they can additional
-   require that the Holder provides a proof that they are the intended
-   Holder of the Verifiable Credential for security reason.  This is
-   only possible if an Issuer binds the Verifiable Credential to a
-   specific Holder at the time of issuance.
+   A Verifiable Credential is an tamper-evident statement made by an
+   Issuer about a Subject of the Verifiable Credential.  Verifiable
+   Credentials are issued to Holders which can present Verifiable
+   Credentials to Verifiers typically in form of Verifiable
+   Presentations.
 
    This is also referred to as the three-party-model which describes the
    relationships between the entities involved in the issuance and
@@ -81,6 +77,13 @@ Table of Contents
    3.  Holder: The person or entity being issued the Verifiable
        Credential, who may present the Verifiable Credential to a
        Verifier for verification.
+
+   Verifiers have to trust Issuers to make trustworthy statements about
+   the Subject and they can additionally require that the Holder
+   provides a proof that they are the intended Holder of the Verifiable
+   Credential which can important for security reasons.  This is only
+   possible if an Issuer binds the Verifiable Credential to a specific
+   Holder at the time of issuance.
 
    Signed JSON Web Tokens (JWTs) [RFC7519] can in principle be used to
    express Verifiable Credentials in a way that is easy to understand
@@ -139,13 +142,22 @@ Table of Contents
       party-model, this representation is used for the Verifiable
       Presentation and is transferred from the Issuer to the Holder.
 
+   Issuer:  An entity that issues VC-SD-JWTs.
+
+   Holder:  An entity that receives VC-SD-JWTs from the Issuer and has
+      control over them.  Holders present VC-SD-JWTs as VP-SD-JWTs to
+      Verifiers and can prove control over them.
+
+   Verifier:  An entity that requests, validates and processes VP-SD-
+      JWTs and VC-SD-JWTs.
+
 2.  Scope
 
    TBD
 
 3.  Use Cases
 
-   TBD: explain three-party-model and use cases.
+   TBD: explain use cases of the three-party-model.
 
    TBD: conventional crypt, hardware security, hsm, mobile secure area,
    compliance with FIPS
@@ -183,8 +195,7 @@ Table of Contents
    specification.  It further indicates that the SD-JWT is a SD-JWT
    component of a VC-SD-JWT.
 
-   The following is a non-normative example of a decoded SD-JWT-VC
-   header:
+   The following is a non-normative example of a decoded SD-JWT header:
 
    {
      "alg": "ES256",
@@ -193,16 +204,16 @@ Table of Contents
 
 5.2.  Payload
 
-   SD-JWT-VCs as defined in this specification can use any claim
+   VC-SD-JWTs as defined in this specification can use any claim
    registered in the "JSON Web Token Claims" registry as defined in
    [RFC7519].
 
    Some of the claims in a VC MUST NOT be selectively disclosed as they
    are always required for processing on the verifier side.  All other
    claims can be made selectively disclosable by the issuer when issuing
-   the respective SD-JWT-VC.
+   the respective VC-SD-JWT.
 
-   SD-JWT-VCs MAY contain additional claims depending on the
+   VC-SD-JWTs MAY contain additional claims depending on the
    application.
 
 5.2.1.  status claim
@@ -216,7 +227,7 @@ Table of Contents
 5.2.3.  Usage of registered JWT Claims
 
    The following are non-selectively disclosable registered JWT claims
-   that SD-JWT-VCs contain for specific purposes:
+   that VC-SD-JWTs contain for specific purposes:
 
    *  iss
 
@@ -229,7 +240,7 @@ Table of Contents
 
    *  nbf
 
-      -  REQUIRED.  The time before which the SD-JWT-VC MUST NOT be
+      -  REQUIRED.  The time before which the VC-SD-JWT MUST NOT be
          accepted before validating.
 
    *  exp
@@ -258,7 +269,7 @@ Table of Contents
          Verifiable Credential.
 
    The following are selectively disclosable registered JWT claims that
-   SD-JWT-VCs contain for specific purposes:
+   VC-SD-JWTs contain for specific purposes:
 
    *  sub
 
@@ -270,19 +281,19 @@ Table of Contents
 
 6.  Validation Rules and Processing
 
-   A verifier MUST validate an SD-JWT-VC as follows:
+   A verifier MUST validate an VC-SD-JWT as follows:
 
-   1.  REQUIRED.  Verify the SD-JWT-VC as defined in Section 6.2 of
+   1.  REQUIRED.  Verify the VC-JWT-VC as defined in Section 6.2 of
        (TBD: see oauth-selective-disclosure-jwt).  For the verification,
-       the iss claim in the SD-JWT-VC MAY be used to retrieve the public
+       the iss claim in the VC-SD-JWT MAY be used to retrieve the public
        key from the JWT Issuer Metadata configuration (as defined in
-       {#jwt-issuer-metadata}) of the SD-JWT-VC issuer.  A verifier MAY
+       {#jwt-issuer-metadata}) of the VC-SD-JWT issuer.  A verifier MAY
        use alternative methods to obtain the public key to verify the
        signature of the SD-JWT.
 
    2.  OPTIONAL.  If status is present in the verified payload of the
-       SD-JWT-VC, the status of the SD-JWT-VC SHOULD be checked.  It
-       depends on the verifier policy to reject or accept an SD-JWT-VC
+       VC-SD-JWT, the status of the VC-SD-JWT SHOULD be checked.  It
+       depends on the verifier policy to reject or accept an VC-SD-JWT
        based on the status of the Verifiable Credential.
 
    Additional validation rules MAY apply, but their use is out of the
