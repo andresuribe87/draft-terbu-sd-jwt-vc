@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-05-09T01:35:29.900702+00:00",
+  "timestamp": "2023-05-11T01:34:32.594963+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -47,6 +47,11 @@
       "name": "wontfix",
       "description": "This will not be worked on",
       "color": "ffffff"
+    },
+    {
+      "name": "HAS PR",
+      "description": "",
+      "color": "1d76db"
     }
   ],
   "issues": [
@@ -118,15 +123,15 @@
       "id": "I_kwDOJbVClc5k0NP6",
       "title": "guidance around the `sub` claim.",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/5",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "Sakurann",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "\u201dsub\u201d Claim MAY be supported by the Issuer. There is no requirement for a binding to exist between `sub` and `cnf` claims.",
       "createdAt": "2023-05-01T21:13:44Z",
-      "updatedAt": "2023-05-08T08:04:32Z",
-      "closedAt": null,
+      "updatedAt": "2023-05-10T14:06:41Z",
+      "closedAt": "2023-05-10T14:06:41Z",
       "comments": [
         {
           "author": "awoie",
@@ -144,7 +149,7 @@
         },
         {
           "author": "Sakurann",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "I am saying that \r\n1. `cnf` is used for cryptographic holder binding.\r\n2. `sub` is used as the user's identifier within the Issuer's namespace.\r\n3. if Issuer chooses to establish a relationship between a `cnf` and a `sub` (such as sub is a JWK thumbprint of a JWK in a cnf claim), but it is not necessary (not sure this even needs to be mentioned in the spec, if so, probably implementation considerations) ",
           "createdAt": "2023-05-05T22:41:13Z",
           "updatedAt": "2023-05-05T22:41:13Z"
@@ -155,6 +160,13 @@
           "body": "Ok, then we don't really need to say anything about the relationship between `cnf` and `sub` since there can be a relationship or there cannot be a relationship.",
           "createdAt": "2023-05-08T08:04:32Z",
           "updatedAt": "2023-05-08T08:04:32Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "fixed by PR #14 ",
+          "createdAt": "2023-05-10T14:06:20Z",
+          "updatedAt": "2023-05-10T14:06:20Z"
         }
       ]
     },
@@ -163,15 +175,17 @@
       "id": "I_kwDOJbVClc5lNIdW",
       "title": "Define terminology of SD-JWT-VC, etc.",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/10",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "awoie",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "HAS PR"
+      ],
       "body": "I think we need to define what the following \"things\" are.\r\n\r\n- What is the Verifiable Credential based on SD-JWTs?\r\n\r\nI believe it is the JWT that contains the `_sd`s. It is not any of the combined formats. This means that the Verifiable Credential MAY NOT contain any disclosable claims, e.g., `name`. Would you agree @tlodderstedt, @Sakurann, Daniel?\r\n\r\nThe VC based on SD-JWT will have the media type `application/vc+sd-jwt`.\r\n\r\n- What is the Verifiable Presentation based on SD-JWTs? It makes sense to define that since the HB JWT has some specific requirements. It also makes sense because protocol developers will need to refer to one term when they exchange presentations or verifiable presentations between issuer <-> holder <-> verifier.\r\n\r\nCan we call the Combined Format for Issuance AND Presentation the Presentation based on SD-JWTs, and if there is HB, then it is a Verifiable Presentation? \r\n\r\nThe VP based SD-JWT will have the media type `application/vp+sd-jwt` altough I'm not sure if this makes sense. Wouldn't it better to have `application/vp+vc+sd-jwt`? Any thoughts on that?",
       "createdAt": "2023-05-05T17:17:20Z",
-      "updatedAt": "2023-05-05T23:49:15Z",
-      "closedAt": null,
+      "updatedAt": "2023-05-10T14:29:51Z",
+      "closedAt": "2023-05-10T14:29:51Z",
       "comments": [
         {
           "author": "awoie",
@@ -196,10 +210,17 @@
         },
         {
           "author": "Sakurann",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Suggest we not overcomplicate things and say:\n- what is returned in a VP Token in OID4VP is a combined Format for presentation with HB-JWT.\n- what is returned in Credential Response in Credential Response in VCI is combined format for issuance.\n- credential format identifier is 'vc+sd-jwt' for both.\n- Terminology-wise, SD-JWT in the IETF spec is defined as an issuer signed JWS without disclosures. For this profile, the payload of SD-JWT, can be mapped back to a VCDM2.0",
           "createdAt": "2023-05-05T23:49:15Z",
           "updatedAt": "2023-05-05T23:49:15Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This is potentially fixed by PR #21 ",
+          "createdAt": "2023-05-10T14:00:14Z",
+          "updatedAt": "2023-05-10T14:00:14Z"
         }
       ]
     },
@@ -248,12 +269,190 @@
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/13",
       "state": "OPEN",
       "author": "Sakurann",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "currenlty, iss, iat, nbf, exp, cnf, type, status are listed as \"non-selectively disclosable registered JWT claims\".\r\nWhat is the risk of selectively disclosing them? I do not have a strong opinion yet, but wanted to make sure we are making a conscious decision.\r\n",
       "createdAt": "2023-05-08T01:46:09Z",
-      "updatedAt": "2023-05-08T01:46:09Z",
+      "updatedAt": "2023-05-10T14:11:17Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "There is no risk but it is not possible to represent them with the VCDM 2.0 since certain properties are required. A verifier that receives a VP-SD-JWT without the mandatory fields would not be able to transform the VP-SD-JWT to a VP as per W3C. This might be ok but also might not be ok. It would be great if we didn't have breaking changes for interop reasons. Thoughts?",
+          "createdAt": "2023-05-10T14:11:17Z",
+          "updatedAt": "2023-05-10T14:11:17Z"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "I_kwDOJbVClc5liFbX",
+      "title": "Fix references to OAuth SD-JWT",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/19",
+      "state": "OPEN",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fix references to OAuth SD-JWT",
+      "createdAt": "2023-05-10T08:57:12Z",
+      "updatedAt": "2023-05-10T08:57:12Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 23,
+      "id": "I_kwDOJbVClc5lkTuk",
+      "title": "Add media type registration info",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/23",
+      "state": "CLOSED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "HAS PR"
+      ],
+      "body": "Add media type registration info",
+      "createdAt": "2023-05-10T14:07:34Z",
+      "updatedAt": "2023-05-10T14:15:26Z",
+      "closedAt": "2023-05-10T14:15:25Z",
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Potentially fixed by #22 ",
+          "createdAt": "2023-05-10T14:07:46Z",
+          "updatedAt": "2023-05-10T14:07:46Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "#22 got merged, closing",
+          "createdAt": "2023-05-10T14:15:25Z",
+          "updatedAt": "2023-05-10T14:15:25Z"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "id": "I_kwDOJbVClc5lkUFI",
+      "title": "Add more info to intro",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/24",
+      "state": "CLOSED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "HAS PR"
+      ],
+      "body": "- explain three-party-model\r\n- explain JSON payload",
+      "createdAt": "2023-05-10T14:08:18Z",
+      "updatedAt": "2023-05-10T14:19:20Z",
+      "closedAt": "2023-05-10T14:19:20Z",
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Potentially fixed by #20 ",
+          "createdAt": "2023-05-10T14:08:32Z",
+          "updatedAt": "2023-05-10T14:08:32Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "#20 merged, closing this issue",
+          "createdAt": "2023-05-10T14:19:20Z",
+          "updatedAt": "2023-05-10T14:19:20Z"
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "I_kwDOJbVClc5lkUsy",
+      "title": "Add more examples",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/25",
+      "state": "OPEN",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- VC-SD-JWT\r\n- VP-SD-JWT w/wo holder binding\r\n- with different payloads",
+      "createdAt": "2023-05-10T14:09:39Z",
+      "updatedAt": "2023-05-10T16:42:31Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Some examples were added but they are not 100% complete.",
+          "createdAt": "2023-05-10T16:42:31Z",
+          "updatedAt": "2023-05-10T16:42:31Z"
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "id": "I_kwDOJbVClc5lktYx",
+      "title": "Review end-to-end with terminology in mind",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/27",
+      "state": "OPEN",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The distinction of VC-SD-JWT and VP-SD-JWT etc. is still not super clean also in terms of what the verifier receives.",
+      "createdAt": "2023-05-10T14:54:44Z",
+      "updatedAt": "2023-05-10T14:54:54Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 29,
+      "id": "I_kwDOJbVClc5llXf5",
+      "title": "Add use case section",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/29",
+      "state": "OPEN",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-05-10T16:42:54Z",
+      "updatedAt": "2023-05-10T16:42:54Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 30,
+      "id": "I_kwDOJbVClc5llXyg",
+      "title": "Add scope section",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/30",
+      "state": "OPEN",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "@tlodderstedt suggested to have a scope section and an overview section. Not sure if we need both.",
+      "createdAt": "2023-05-10T16:43:52Z",
+      "updatedAt": "2023-05-10T16:44:01Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 31,
+      "id": "I_kwDOJbVClc5llX_Q",
+      "title": "Add flow diagram",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/31",
+      "state": "OPEN",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I guess that is missing although the flow diagram won't be much different from SD-JWT. Perhaps the status check could be added in addition.",
+      "createdAt": "2023-05-10T16:44:31Z",
+      "updatedAt": "2023-05-10T16:44:31Z",
       "closedAt": null,
       "comments": []
     }
@@ -404,12 +603,12 @@
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/12",
       "state": "OPEN",
       "author": "Sakurann",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "I would personally remove it, but will not die on that hill",
       "createdAt": "2023-05-08T01:43:46Z",
-      "updatedAt": "2023-05-08T01:58:42Z",
+      "updatedAt": "2023-05-10T08:58:53Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "cc8925f95271ee5df4e011d465fd433b3e635d4e",
@@ -421,33 +620,63 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbVClc5UpVdq",
+          "commit": {
+            "abbreviatedOid": "384c349"
+          },
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Shouldn't `nbf` map to `validFrom` in VCDM 2.0? If `validFrom` is MUST as per VCDM 2.0, how would we do the mapping?",
+          "createdAt": "2023-05-10T08:58:53Z",
+          "updatedAt": "2023-05-10T08:58:53Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 14,
       "id": "PR_kwDOJbVClc5P9AKz",
       "title": "adding text on sub claim",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/14",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "Sakurann",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "no binding btw sub and cnf necessary",
       "createdAt": "2023-05-08T01:50:45Z",
-      "updatedAt": "2023-05-08T01:58:28Z",
+      "updatedAt": "2023-05-10T14:06:40Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "cc8925f95271ee5df4e011d465fd433b3e635d4e",
       "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "headRefName": "sakurann-sub-cnf",
       "headRefOid": "2840dd585c29edacb5223271a7b9361b918af677",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-05-10T14:06:40Z",
+      "mergedAt": "2023-05-10T14:06:40Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "1c5b665daace2879cbad08d864fe7e0f687c6775"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbVClc5UrqVV",
+          "commit": {
+            "abbreviatedOid": "2840dd5"
+          },
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "lgtm, thank you",
+          "createdAt": "2023-05-10T14:05:48Z",
+          "updatedAt": "2023-05-10T14:05:48Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 15,
@@ -456,12 +685,12 @@
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/15",
       "state": "OPEN",
       "author": "Sakurann",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "need to discuss how much we want to mandate.",
       "createdAt": "2023-05-08T01:56:10Z",
-      "updatedAt": "2023-05-08T01:58:10Z",
+      "updatedAt": "2023-05-10T14:04:56Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "cc8925f95271ee5df4e011d465fd433b3e635d4e",
@@ -473,57 +702,89 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbVClc5Urp4c",
+          "commit": {
+            "abbreviatedOid": "20d39b8"
+          },
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Shouldn't this limitation go in the hi-assurance profile only?",
+          "createdAt": "2023-05-10T14:04:55Z",
+          "updatedAt": "2023-05-10T14:04:55Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 16,
       "id": "PR_kwDOJbVClc5P9DCp",
       "title": "add JSON Web Token Claims Registration to IANA",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/16",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "Sakurann",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-05-08T02:05:17Z",
-      "updatedAt": "2023-05-08T02:05:17Z",
+      "updatedAt": "2023-05-10T13:53:46Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "cc8925f95271ee5df4e011d465fd433b3e635d4e",
       "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "headRefName": "sakurann-type-claim",
       "headRefOid": "6c126dbf7b8b7fb7d136dc803994ae7b9fd0352a",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2023-05-10T13:53:45Z",
+      "mergedAt": "2023-05-10T13:53:45Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "351db9a9043b4dba43887f109072155af10c7016"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbVClc5Urje-",
+          "commit": {
+            "abbreviatedOid": "6c126db"
+          },
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "lgtm",
+          "createdAt": "2023-05-10T13:53:28Z",
+          "updatedAt": "2023-05-10T13:53:28Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 17,
       "id": "PR_kwDOJbVClc5QBPDR",
       "title": "Changes from my first pass",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/17",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "danielfett",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-05-08T17:07:47Z",
-      "updatedAt": "2023-05-08T17:41:03Z",
+      "updatedAt": "2023-05-10T08:54:39Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "cc8925f95271ee5df4e011d465fd433b3e635d4e",
       "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "headRefName": "danielfett/first-pass",
-      "headRefOid": "594648da59a16062200817baf03955221f5d88ac",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "90446aefa3138436201d64d2c2c4678e600e5c3c",
+      "closedAt": "2023-05-10T08:54:39Z",
+      "mergedAt": "2023-05-10T08:54:39Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "7229d6b19b565ae1edc2fc1c81c9c7c28ef6b0f4"
+      },
       "comments": [
         {
           "author": "awoie",
@@ -546,8 +807,251 @@
           "createdAt": "2023-05-08T17:39:17Z",
           "updatedAt": "2023-05-08T17:39:17Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5UpN-7",
+          "commit": {
+            "abbreviatedOid": "594648d"
+          },
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "i'll just merge those changes and fix them on my machine.",
+          "createdAt": "2023-05-10T08:46:43Z",
+          "updatedAt": "2023-05-10T08:46:43Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbVClc5UpP5Z",
+          "commit": {
+            "abbreviatedOid": "594648d"
+          },
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "let's fix references later and create a new issue for that",
+          "createdAt": "2023-05-10T08:50:00Z",
+          "updatedAt": "2023-05-10T08:51:09Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "```suggestion\r\n(TBD: see oauth-selective-disclosure-jwt) using JSON payloads.\r\n```",
+              "createdAt": "2023-05-10T08:50:00Z",
+              "updatedAt": "2023-05-10T08:51:09Z"
+            },
+            {
+              "originalPosition": 66,
+              "body": "```suggestion\r\n 1. REQUIRED. Verify the SD-JWT-VC as defined in Section 6.2 of (TBD: see oauth-selective-disclosure-jwt). For the verification, the `iss` claim in the SD-JWT-VC MAY be used to retrieve the public key from the JWT Issuer Metadata configuration (as defined in {#jwt-issuer-metadata}) of the SD-JWT-VC issuer. A verifier MAY use alternative methods to obtain the public key to verify the signature of the SD-JWT.\r\n```",
+              "createdAt": "2023-05-10T08:50:47Z",
+              "updatedAt": "2023-05-10T08:51:09Z"
+            }
+          ]
         }
       ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOJbVClc5QKsKw",
+      "title": "fix: removed trailing white spaces",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/18",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-05-10T08:55:49Z",
+      "updatedAt": "2023-05-10T08:56:51Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "7229d6b19b565ae1edc2fc1c81c9c7c28ef6b0f4",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "feat/fix-build-errors",
+      "headRefOid": "8fc57342adf1a1ceeb58a90a577dd87e6b2a07b9",
+      "closedAt": "2023-05-10T08:56:51Z",
+      "mergedAt": "2023-05-10T08:56:51Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "13c4f9a8b8b2478e672c18fc500ce95731ebbcec"
+      },
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "merging since this is just fixing trailing whitespaces",
+          "createdAt": "2023-05-10T08:56:47Z",
+          "updatedAt": "2023-05-10T08:56:47Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOJbVClc5QMMeA",
+      "title": "feat: added more intro",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/20",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Finished introduction section",
+      "createdAt": "2023-05-10T12:56:55Z",
+      "updatedAt": "2023-05-10T14:18:59Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "13c4f9a8b8b2478e672c18fc500ce95731ebbcec",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "feat/finish-intro",
+      "headRefOid": "505266ccf6879425fe9bffb37b58e066a967d62b",
+      "closedAt": "2023-05-10T14:18:59Z",
+      "mergedAt": "2023-05-10T14:18:59Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "c95245a2d09249352442a28267291f5d7ce92302"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOJbVClc5QMf-X",
+      "title": "feat: added terms and definitions section; updated data format; fixes #10",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/21",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Added terms and definitions section; made some changes data formats based on terms and definitions section\r\n- fixes #10",
+      "createdAt": "2023-05-10T13:39:31Z",
+      "updatedAt": "2023-05-10T14:29:51Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "13c4f9a8b8b2478e672c18fc500ce95731ebbcec",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "feat/add-terminology",
+      "headRefOid": "c9f98ad0a8b7ee9bc814c0f1e51c51160fd173e5",
+      "closedAt": "2023-05-10T14:29:50Z",
+      "mergedAt": "2023-05-10T14:29:50Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "d31441235ff637f0607d07d5768c109337643a48"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOJbVClc5QMohM",
+      "title": "feat: added media type registration info",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/22",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "feat: added media type registration info",
+      "createdAt": "2023-05-10T13:59:43Z",
+      "updatedAt": "2023-05-10T14:15:06Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "351db9a9043b4dba43887f109072155af10c7016",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "feat/add-iana-reg",
+      "headRefOid": "723aeea2d46e5a5a018f332834fdae42c94ba12d",
+      "closedAt": "2023-05-10T14:15:05Z",
+      "mergedAt": "2023-05-10T14:15:05Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "cd54cad2d8ca71d74a3eecb9be03db1f28cc4d63"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 26,
+      "id": "PR_kwDOJbVClc5QNDiq",
+      "title": "fix: some editorial fixes",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/26",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-05-10T14:53:43Z",
+      "updatedAt": "2023-05-10T14:55:04Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "d31441235ff637f0607d07d5768c109337643a48",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "feat/various-edits",
+      "headRefOid": "9696a912ea4cf75e743a4e4aa73aa1ac45b894bb",
+      "closedAt": "2023-05-10T14:55:04Z",
+      "mergedAt": "2023-05-10T14:55:04Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "5a074d3bb774dfeaa74f433ef4aa2c0943330009"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOJbVClc5QNh5a",
+      "title": "Feat/add examples",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/28",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-05-10T16:18:38Z",
+      "updatedAt": "2023-05-10T16:20:15Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "5a074d3bb774dfeaa74f433ef4aa2c0943330009",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "feat/add-examples",
+      "headRefOid": "14e25b0df6b7aa7d6d39f3cc47a0ab758063cf71",
+      "closedAt": "2023-05-10T16:20:15Z",
+      "mergedAt": "2023-05-10T16:20:15Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "4d83ee0402ce47f439d82e59b0128402b55e66e1"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 32,
+      "id": "PR_kwDOJbVClc5QNrM_",
+      "title": "Add mapping algo for VCs",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/32",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-05-10T16:53:01Z",
+      "updatedAt": "2023-05-10T17:29:24Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "4d83ee0402ce47f439d82e59b0128402b55e66e1",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "feat/mapping",
+      "headRefOid": "8b66ad3e90433111c621a029d09f84e8baca8d49",
+      "closedAt": "2023-05-10T17:29:24Z",
+      "mergedAt": "2023-05-10T17:29:24Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "23ebea27286bc7bc3878ebe1d7993399730aea2c"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
