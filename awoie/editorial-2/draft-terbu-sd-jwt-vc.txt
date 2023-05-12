@@ -232,9 +232,8 @@ Table of Contents
 5.1.2.1.  type claim
 
    This specification defines the JWT claim type.  The type claim is
-   used to express the type of the JSON object that is contained in the
-   JWT payload.  The type value MUST be a case-sensitive StringOrURI
-   value.
+   used to express the type of the JSON object that is secured by the
+   JWT.  The type value MUST be a case-sensitive StringOrURI value.
 
    The following is a non-normative example of how type is used to
    express a type:
@@ -279,7 +278,9 @@ Table of Contents
    *  type
 
       -  REQUIRED.  The type of the Verifiable Credential, e.g.,
-         IdentityCredential.
+         IdentityCredential.  The claims belonging to the type can be
+         contained in different components of the VC-SD-JWT, e.g., SD-
+         JWT or Disclosures.
 
    *  status
 
@@ -376,13 +377,12 @@ Table of Contents
 
    _Disclosure for given_name:_
 
-   SHA-256 Hash: f4nimkh9dcwJ8JK46zlad_zgyYJfZFPImAWBNh86Kb0
+   *  SHA-256 Hash: f4nimkh9dcwJ8JK46zlad_zgyYJfZFPImAWBNh86Kb0
 
-   Disclosure:
+   *  Disclosure:
+      WyJuWUpCd1Q0OERQTEtYcVd1UmJ4NVNRIiwgImdpdmVuX25hbWUiLCAiSm9obiJd
 
-   WyJuWUpCd1Q0OERQTEtYcVd1UmJ4NVNRIiwgImdpdmVuX25hbWUiLCAiSm9obiJd
-
-   Contents:
+   *  Contents:
 
    ["nYJBwT48DPLKXqWuRbx5SQ", "given_name", "John"]
 
