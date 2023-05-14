@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-05-11T01:34:32.594963+00:00",
+  "timestamp": "2023-05-14T01:40:11.182688+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -91,16 +91,24 @@
       "id": "I_kwDOJbVClc5kzsXf",
       "title": "defining `type` claim to be usable beyond SD-JWT-VC",
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/3",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "Sakurann",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "`type` JWT claim should be defined in a way that makes it usable not only with SD-JWT-VC, but any other JSON based Credential Format like JWT-VC.",
       "createdAt": "2023-05-01T19:51:36Z",
-      "updatedAt": "2023-05-01T19:51:36Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2023-05-11T13:54:18Z",
+      "closedAt": "2023-05-11T13:54:18Z",
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "that is done",
+          "createdAt": "2023-05-11T13:54:18Z",
+          "updatedAt": "2023-05-11T13:54:18Z"
+        }
+      ]
     },
     {
       "number": 4,
@@ -109,12 +117,14 @@
       "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/4",
       "state": "OPEN",
       "author": "Sakurann",
-      "authorAssociation": "NONE",
-      "assignees": [],
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [
+        "awoie"
+      ],
       "labels": [],
       "body": "- omitting `type` claim in Presentation and treating it as a default value `VerifiablePresentations`",
       "createdAt": "2023-05-01T19:58:25Z",
-      "updatedAt": "2023-05-01T19:58:25Z",
+      "updatedAt": "2023-05-11T09:26:49Z",
       "closedAt": null,
       "comments": []
     },
@@ -455,6 +465,164 @@
       "updatedAt": "2023-05-10T16:44:31Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 33,
+      "id": "I_kwDOJbVClc5lpbS7",
+      "title": "[Trust Model] validation of Metadata, jwks and not repudiable trust relationships",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/33",
+      "state": "OPEN",
+      "author": "peppelinux",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "In https://github.com/vcstuff/draft-terbu-sd-jwt-vc/blob/main/draft-terbu-sd-jwt-vc.md#jwt-issuer-metadata-jwt-issuer-metadata\r\n\r\nMy concerns rely about the semantic of this `/.well-known/jwt-issuer`, since every participant in a identity (openid) or authorization (Oauth) infrastructure is in fact a jwt issuer, even the relying party issues JWT (authz request, private_key_jwt ...). I would like to stress our brains to get a solution re-using what we already have or specialized other wel-known(s) endpoint in relation at the new roles in the wallet ecosystem\r\n\r\nIn addition to this \"intellectual\" challenge, I propose to do a PR by introducing `.well-known/openid-federation` for secure trust establishment mechanisms that cannot be repudiated over time.\r\n\r\nIn particular the role of the `trust_chain` JWS header as shown in the example below\r\n\r\n````\r\n{\r\n \"alg\": \"ES256\",\r\n \"typ\": \"vc+sd-jwt\",\r\n \"kid\": \"4-available-in-the-trust-chain\",\r\n \"trust_chain\": [\r\n   \"fIIE3jCCA8agAwIBAgICAwEwT...TWVU\",\r\n   \"aiIE+zCCBGSgAwIBAgICAQ0wD...09VZ\",\r\n   \"fyIC5zCCAlACAQEwDQYJKoZIh...9ViH\"\r\n ]\r\n}\r\n.\r\n{\r\n \"iss\": \"https://credential-issuer.example.com/\",\r\n \"iat\": 1516239022,\r\n \"exp\": 1516247022,\r\n \"type\": \"Identity\",\r\n \"_sd\": [\r\n   \"UiuRGkTW7e_5UQauGeQRQdF8u3WYevS4Fs0IuB_DgYM\",\r\n   \"tmPlXq0MID-oRXbUNHyoVZrc9Qkm8cwJTohVyOVlUgQ\",\r\n   \"vTz0JI103v4k4pKIloT83Yzi33L1SdZlWBPmsfJBefk\"\r\n ],\r\n \"_sd_alg\": \"sha-256\",\r\n \"cnf\": {\r\n   \"jwk\": {\r\n     \"kty\": \"EC\",\r\n     \"crv\": \"P-256\",\r\n     \"x\": \"TCAER19Zvu3OHF4j4W4vfSVoHIP1ILilDls7vCeGemc\",\r\n     \"y\": \"ZxjiWWbZMQGHVWKVQ4hbSIirsVfuecCE6t4jT9F2HZQ\"\r\n   }\r\n }\r\n}\r\n````\r\nthe benefits of the federation trust chain are summarized below\r\n\r\n1. trust and protocol specific jwks are available in it\r\n2. the jwks and the metadata are verifiable having just the public key of a single trusted third party (Trust Anchor)\r\n3. the metadata of the issuer are subject of the policies of the trust chain, the trust chain may overload, add,remove, some elements from the final metadata by applying the policies contained in it. This allow us to remove the possibility that an entity may use a weak alg or defines unsupported scopes or any other property not allowed by the regulation implemented by Trust Anchor\r\n\r\nThis JWS header will be registered in the IANA registry and will be soon published in the OIDC Federation draft 29\r\n\r\nI can do the draft of the PR and ask to you a revision as usual, while regarding the first point I'd suggest more discussion on that\r\n",
+      "createdAt": "2023-05-11T08:46:03Z",
+      "updatedAt": "2023-05-12T14:26:49Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 34,
+      "id": "I_kwDOJbVClc5lpshA",
+      "title": "Intro section might be too broad",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/34",
+      "state": "OPEN",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Feedback from @tlodderstedt :\r\n\r\n> \"However, JWTs do not support selective disclosure, i.e., the ability to disclose only a subset of the claims contained in the JWT. \" is to broad - Suggest to frame it like this  \"JWTs do not support selective disclosure in the issuer-holder-verifier model\"",
+      "createdAt": "2023-05-11T09:28:19Z",
+      "updatedAt": "2023-05-11T09:28:19Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 35,
+      "id": "I_kwDOJbVClc5lptOL",
+      "title": "Remove polymorphism from types attribute",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/35",
+      "state": "CLOSED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Pros:\r\n- selective disclosure of types possible to increase privacy and to reduce contextual info\r\n- more granular types possible\r\n- issuers don't have to issue multiple credentials\r\n\r\nCons:\r\n- polymorphism always is a challenge, we that with `aud`\r\n- no support in SD-JWT yet to selectively disclose array elements",
+      "createdAt": "2023-05-11T09:30:01Z",
+      "updatedAt": "2023-05-11T15:21:16Z",
+      "closedAt": "2023-05-11T15:21:16Z",
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "After further discussions it seems that multiple types might cause difficulties with JSON schemas. If multiple types are required in the future (e.g. more implementer's feedback), we can update the specification.\r\n\r\nSo, let's make `types` a single string value.",
+          "createdAt": "2023-05-11T13:52:29Z",
+          "updatedAt": "2023-05-11T13:52:29Z"
+        }
+      ]
+    },
+    {
+      "number": 36,
+      "id": "I_kwDOJbVClc5lpteU",
+      "title": "JWT Issuer Metadata should support paths",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/36",
+      "state": "OPEN",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The rules for obtaining the issuer metadata needs to be extended to cope with paths as well. I suggest to use the text from https://www.rfc-editor.org/rfc/rfc8414.html#section-3.",
+      "createdAt": "2023-05-11T09:30:34Z",
+      "updatedAt": "2023-05-11T09:30:34Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 37,
+      "id": "I_kwDOJbVClc5lrjLw",
+      "title": "analyze and clarify the diff with vc-jwt?",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/37",
+      "state": "CLOSED",
+      "author": "Sakurann",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The usage of a Holder Binding JWT as defined in [IETF.SD-JWT] might be a different mechanism from Verifiable Presentation as defined in [W3C.VCDM2.0]/[vc-jwt], while achieving the same goal.\r\n\r\nmaybe not needed. not sure if this will bring clarify or more confusion",
+      "createdAt": "2023-05-11T14:17:44Z",
+      "updatedAt": "2023-05-13T13:00:34Z",
+      "closedAt": "2023-05-13T13:00:34Z",
+      "comments": [
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The current VC SD-JWT text should actually use Combined Format for Presentations (incl. Holder Binding) for VPs. So, it is already included and the only option to accomplish that. If the current text does not reflect that well enough, we should make the text more precise.\r\n\r\n@Sakurann which section of VC SD-JWT are you specifically referring to?",
+          "createdAt": "2023-05-11T14:48:15Z",
+          "updatedAt": "2023-05-11T14:48:15Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The current text of VC SD-JWT has nothing to do with VC-JWT as per W3C.",
+          "createdAt": "2023-05-11T14:48:52Z",
+          "updatedAt": "2023-05-11T14:48:52Z"
+        },
+        {
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Ok. Than we are not dependent on VC-JWT for nbf too (issue #12)",
+          "createdAt": "2023-05-13T13:00:20Z",
+          "updatedAt": "2023-05-13T13:00:20Z"
+        }
+      ]
+    },
+    {
+      "number": 40,
+      "id": "I_kwDOJbVClc5l10wF",
+      "title": "Align and expand Scenarios/Business Requirements section",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/40",
+      "state": "CLOSED",
+      "author": "Sakurann",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-05-13T13:42:07Z",
+      "updatedAt": "2023-05-13T13:42:32Z",
+      "closedAt": "2023-05-13T13:42:31Z",
+      "comments": [
+        {
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "sorry, wrong repo...",
+          "createdAt": "2023-05-13T13:42:31Z",
+          "updatedAt": "2023-05-13T13:42:31Z"
+        }
+      ]
+    },
+    {
+      "number": 41,
+      "id": "I_kwDOJbVClc5l1-X3",
+      "title": "HTTPS URL and OIDC Federation?",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/41",
+      "state": "OPEN",
+      "author": "Sakurann",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "per comment from @peppelinux, consider mention that an issuer URL used for /.well-known/jwks can also be used for OpenID Federation.",
+      "createdAt": "2023-05-13T15:08:51Z",
+      "updatedAt": "2023-05-13T20:19:42Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "peppelinux",
+          "authorAssociation": "NONE",
+          "body": "OIDC Federation is related to the technical implementation of the Trust Model and then to the infrastructure of Trust\r\n\r\nan HTTP URL should, or may, be inspected for Trust Assessment with the .well-known/openid-federation endpoint and then with the Federation Entity Discovery process.\r\n\r\nThe Federation Entity Discovery process is always required when the trust assessment method is OpenID Federation and its media, the Trust Chain, contains all the verifiable trust relationships between the parties, the metadata with policy applied and everything about a subject, if not available.\r\n\r\nElse, if available, it just only be validated and checked against the revocation methods of the participants in the infrastructure.\r\nThis last statement considers the availability of the Trust Chain of every issuer of JWS, as introduced in the issue below:\r\n\r\nhttps://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/33\r\n\r\nA secure Trust Model requires \"signature everywhere\" to satisfy the requirement of non-repudiability or everything issued by an issuer. For this reason the JWKS in OpenID Connect federation are embedded in the signed metadata (Entity Configuration) or made available, and signed, in the signed_jwks_uri\r\n\r\ntoghether with the federation entity discovery and the provision of static trust chain in the JWS header, I'm working on these two DID resolution methods\r\n\r\n**did:openid:example.it:oidc:rp[#$kid-value]**\r\nthis URN is translated to https://example.it/oidc/rp/.well-known/openid-federation and requires a Federation Entity Discovery to build a valid Trust Chain. This doesn't preclude any other OpenID Connect trust resolution method in the present or in the future, giving to the trust resolver the freedom to decide which openid standard to use for the resolution of the keys. Kid value is optional depending to the scope of the did indetifier, if related to a subject or to a key\r\n\r\n**did:openid-trustchain:BASE64({\"kid\": 1, \"trust_chain\": [ ... ]})**\r\nthis URN is translated to a static OpenID Connect Federation Trust Chain, that gives a snapshot of the federation configuration and of the trust relationships between the subject and the Trust Anchor, its metadatas, the metadata policies, trust mark... Everything about the Trust Model, without any federation entity discovery process\r\n\r\nSo, HTTP or DID a Trust Model with OpenID Federation should be always supported in the specs\r\n\r\n",
+          "createdAt": "2023-05-13T20:17:44Z",
+          "updatedAt": "2023-05-13T20:19:42Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -608,7 +776,7 @@
       "labels": [],
       "body": "I would personally remove it, but will not die on that hill",
       "createdAt": "2023-05-08T01:43:46Z",
-      "updatedAt": "2023-05-10T08:58:53Z",
+      "updatedAt": "2023-05-13T12:56:13Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "cc8925f95271ee5df4e011d465fd433b3e635d4e",
@@ -619,7 +787,43 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "c2bo",
+          "authorAssociation": "NONE",
+          "body": "Please correct me if I am wrong, but I would understand VCDM2.0 `validFrom` as a mix of `iat` and `nbf`? \r\nVCDM 2.0 does not have a issued at field and only defines `validFrom`. \r\n\r\nSo my understanding would be:\r\n- if only `iat` is defined, we set the `validFrom` to the value of `iat`\r\n- if both are defined, we set `validFrom` to the value of `nbf` (and lose the iat information in the VCDM2.0 representation)\r\n\r\nSo either remove nbf completely or make it optional and basically overwrite iat (for the VCDM2.0) if it exists?\r\nDoes that make sense?\r\n",
+          "createdAt": "2023-05-11T14:47:01Z",
+          "updatedAt": "2023-05-11T14:47:01Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Please correct me if I am wrong, but I would understand VCDM2.0 `validFrom` as a mix of `iat` and `nbf`? VCDM 2.0 does not have a issued at field and only defines `validFrom`.\r\n> \r\n> So my understanding would be:\r\n> \r\n> * if only `iat` is defined, we set the `validFrom` to the value of `iat`\r\n> * if both are defined, we set `validFrom` to the value of `nbf` (and lose the iat information in the VCDM2.0 representation)\r\n> \r\n> So either remove nbf completely or make it optional and basically overwrite iat (for the VCDM2.0) if it exists? Does that make sense?\r\n\r\nFrom the VCDM 2.0 spec:\r\n\r\n> validFrom\r\nA [credential](https://www.w3.org/TR/vc-data-model-2.0/#dfn-credential) MUST have an validFrom [property](https://www.w3.org/TR/vc-data-model-2.0/#dfn-property). The value of the validFrom [property](https://www.w3.org/TR/vc-data-model-2.0/#dfn-property) MUST be a string value of an [[XMLSCHEMA11-2](https://www.w3.org/TR/xmlschema11-2/#dateTime)] combined date-time string representing the date and time the [credential](https://www.w3.org/TR/vc-data-model-2.0/#dfn-credential) becomes valid, which could be a date and time in the future. Note that this value represents the earliest point in time at which the information associated with the credentialSubject [property](https://www.w3.org/TR/vc-data-model-2.0/#dfn-property) becomes valid.\r\n\r\nFrom the JWT nbf spec:\r\n\r\n> The \"nbf\" (not before) claim identifies the time before which the JWT\r\n   MUST NOT be accepted for processing.  The processing of the \"nbf\"\r\n   claim requires that the current date/time MUST be after or equal to\r\n   the not-before date/time listed in the \"nbf\" claim.  Implementers MAY\r\n   provide for some small leeway, usually no more than a few minutes, to\r\n   account for clock skew.  Its value MUST be a number containing a\r\n   NumericDate value.  Use of this claim is OPTIONAL.\r\n\r\nIMO, we should map nbf <-> validFrom and iat <-> issuedAt or we don't map iat at all (which might be fine).\r\n",
+          "createdAt": "2023-05-11T14:56:44Z",
+          "updatedAt": "2023-05-11T14:56:44Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > Please correct me if I am wrong, but I would understand VCDM2.0 `validFrom` as a mix of `iat` and `nbf`? VCDM 2.0 does not have a issued at field and only defines `validFrom`.\r\n> > So my understanding would be:\r\n> > \r\n> > * if only `iat` is defined, we set the `validFrom` to the value of `iat`\r\n> > * if both are defined, we set `validFrom` to the value of `nbf` (and lose the iat information in the VCDM2.0 representation)\r\n> > \r\n> > So either remove nbf completely or make it optional and basically overwrite iat (for the VCDM2.0) if it exists? Does that make sense?\r\n> \r\n> From the VCDM 2.0 spec:\r\n> \r\n> > validFrom\r\n> > A [credential](https://www.w3.org/TR/vc-data-model-2.0/#dfn-credential) MUST have an validFrom [property](https://www.w3.org/TR/vc-data-model-2.0/#dfn-property). The value of the validFrom [property](https://www.w3.org/TR/vc-data-model-2.0/#dfn-property) MUST be a string value of an [[XMLSCHEMA11-2](https://www.w3.org/TR/xmlschema11-2/#dateTime)] combined date-time string representing the date and time the [credential](https://www.w3.org/TR/vc-data-model-2.0/#dfn-credential) becomes valid, which could be a date and time in the future. Note that this value represents the earliest point in time at which the information associated with the credentialSubject [property](https://www.w3.org/TR/vc-data-model-2.0/#dfn-property) becomes valid.\r\n> \r\n> From the JWT nbf spec:\r\n> \r\n> > The \"nbf\" (not before) claim identifies the time before which the JWT\r\n> > MUST NOT be accepted for processing.  The processing of the \"nbf\"\r\n> > claim requires that the current date/time MUST be after or equal to\r\n> > the not-before date/time listed in the \"nbf\" claim.  Implementers MAY\r\n> > provide for some small leeway, usually no more than a few minutes, to\r\n> > account for clock skew.  Its value MUST be a number containing a\r\n> > NumericDate value.  Use of this claim is OPTIONAL.\r\n> \r\n> IMO, we should map nbf <-> validFrom and iat <-> issuedAt or we don't map iat at all (which might be fine).\r\n\r\n@c2bo I agree that `issuedAt` is not defined in VCDM 2.0. One of the reasons is that it is redundant with the date time in the `proof` of the data integrity proof. For that reason we can probably just drop it entirely.",
+          "createdAt": "2023-05-11T14:59:09Z",
+          "updatedAt": "2023-05-11T14:59:38Z"
+        },
+        {
+          "author": "c2bo",
+          "authorAssociation": "NONE",
+          "body": "Hmm yeah, vc-jwt seems to do exactly that - drop `iat` and use `nbf` for `validFrom`. ",
+          "createdAt": "2023-05-11T17:38:39Z",
+          "updatedAt": "2023-05-11T17:38:39Z"
+        },
+        {
+          "author": "Sakurann",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I disagree with the request for changes. We don't have to follow VC-JWT mapping. The cleanest is to map iat to ValidFrom.",
+          "createdAt": "2023-05-13T12:55:48Z",
+          "updatedAt": "2023-05-13T12:56:13Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOJbVClc5UpVdq",
@@ -1049,6 +1253,62 @@
       "mergedBy": "awoie",
       "mergeCommit": {
         "oid": "23ebea27286bc7bc3878ebe1d7993399730aea2c"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 38,
+      "id": "PR_kwDOJbVClc5QTe1j",
+      "title": "fix: made types a single value, fixes #35 ",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/38",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "fixes #35 ",
+      "createdAt": "2023-05-11T15:20:33Z",
+      "updatedAt": "2023-05-11T15:21:15Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "23ebea27286bc7bc3878ebe1d7993399730aea2c",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "awoie/fix-35",
+      "headRefOid": "9b5b29a46e9a48df2211ae426193bc9edbbea481",
+      "closedAt": "2023-05-11T15:21:15Z",
+      "mergedAt": "2023-05-11T15:21:15Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "ca3dac286df942065e93ba95c1f949cd71ead767"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 39,
+      "id": "PR_kwDOJbVClc5QX7dE",
+      "title": "Some editorial changes",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/pull/39",
+      "state": "MERGED",
+      "author": "awoie",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-05-12T10:18:39Z",
+      "updatedAt": "2023-05-12T10:20:45Z",
+      "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "baseRefName": "main",
+      "baseRefOid": "ca3dac286df942065e93ba95c1f949cd71ead767",
+      "headRepository": "vcstuff/draft-terbu-sd-jwt-vc",
+      "headRefName": "awoie/editorial-2",
+      "headRefOid": "df29922e312dc14e32ed35bb5210b008dfb9751d",
+      "closedAt": "2023-05-12T10:20:44Z",
+      "mergedAt": "2023-05-12T10:20:44Z",
+      "mergedBy": "awoie",
+      "mergeCommit": {
+        "oid": "dd87576d16445a8dc4438eac191b217f6799459b"
       },
       "comments": [],
       "reviews": []
