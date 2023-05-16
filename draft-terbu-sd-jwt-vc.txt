@@ -6,7 +6,7 @@ TBD                                                             O. Terbu
                                                     Spruce Systems, Inc.
                                                                  D. Fett
                                                            Authlete Inc.
-                                                             12 May 2023
+                                                             16 May 2023
 
 
        Verifiable Credentials based on SD-JWT with JSON payloads
@@ -51,8 +51,7 @@ Table of Contents
        A.2.1.  application/vc+sd-jwt
        A.2.2.  application/vp+sd-jwt
    Appendix B.  Acknowledgements
-   Appendix C.  Notices
-   Appendix D.  Document History
+   Appendix C.  Document History
    Authors' Addresses
 
 1.  Introduction
@@ -718,15 +717,16 @@ A.2.2.  application/vp+sd-jwt
 
 Appendix B.  Acknowledgements
 
-   TBD
+   We would like to thank Alen Horvat, Christian Bormann, Giuseppe De
+   Marco, Torsten Lodderstedt and Kristina Yasuda for their
+   contributions (some of which substantial) to this draft and to the
+   initial set of implementations.
 
-Appendix C.  Notices
+Appendix C.  Document History
 
-   TBD
+   -00
 
-Appendix D.  Document History
-
-   TBD
+   *  Initial Version
 
 Authors' Addresses
 
