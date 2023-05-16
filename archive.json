@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-05-14T01:40:11.182688+00:00",
+  "timestamp": "2023-05-16T01:37:35.586166+00:00",
   "repo": "vcstuff/draft-terbu-sd-jwt-vc",
   "labels": [
     {
@@ -612,17 +612,47 @@
       "labels": [],
       "body": "per comment from @peppelinux, consider mention that an issuer URL used for /.well-known/jwks can also be used for OpenID Federation.",
       "createdAt": "2023-05-13T15:08:51Z",
-      "updatedAt": "2023-05-13T20:19:42Z",
+      "updatedAt": "2023-05-14T22:34:32Z",
       "closedAt": null,
       "comments": [
         {
           "author": "peppelinux",
           "authorAssociation": "NONE",
-          "body": "OIDC Federation is related to the technical implementation of the Trust Model and then to the infrastructure of Trust\r\n\r\nan HTTP URL should, or may, be inspected for Trust Assessment with the .well-known/openid-federation endpoint and then with the Federation Entity Discovery process.\r\n\r\nThe Federation Entity Discovery process is always required when the trust assessment method is OpenID Federation and its media, the Trust Chain, contains all the verifiable trust relationships between the parties, the metadata with policy applied and everything about a subject, if not available.\r\n\r\nElse, if available, it just only be validated and checked against the revocation methods of the participants in the infrastructure.\r\nThis last statement considers the availability of the Trust Chain of every issuer of JWS, as introduced in the issue below:\r\n\r\nhttps://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/33\r\n\r\nA secure Trust Model requires \"signature everywhere\" to satisfy the requirement of non-repudiability or everything issued by an issuer. For this reason the JWKS in OpenID Connect federation are embedded in the signed metadata (Entity Configuration) or made available, and signed, in the signed_jwks_uri\r\n\r\ntoghether with the federation entity discovery and the provision of static trust chain in the JWS header, I'm working on these two DID resolution methods\r\n\r\n**did:openid:example.it:oidc:rp[#$kid-value]**\r\nthis URN is translated to https://example.it/oidc/rp/.well-known/openid-federation and requires a Federation Entity Discovery to build a valid Trust Chain. This doesn't preclude any other OpenID Connect trust resolution method in the present or in the future, giving to the trust resolver the freedom to decide which openid standard to use for the resolution of the keys. Kid value is optional depending to the scope of the did indetifier, if related to a subject or to a key\r\n\r\n**did:openid-trustchain:BASE64({\"kid\": 1, \"trust_chain\": [ ... ]})**\r\nthis URN is translated to a static OpenID Connect Federation Trust Chain, that gives a snapshot of the federation configuration and of the trust relationships between the subject and the Trust Anchor, its metadatas, the metadata policies, trust mark... Everything about the Trust Model, without any federation entity discovery process\r\n\r\nSo, HTTP or DID a Trust Model with OpenID Federation should be always supported in the specs\r\n\r\n",
+          "body": "OIDC Federation is related to the technical implementation of the Trust Model and then to the infrastructure of Trust\r\n\r\nan HTTP URL should, or may, be inspected for Trust Assessment with the .well-known/openid-federation endpoint and then with the Federation Entity Discovery process.\r\n\r\nThe Federation Entity Discovery process is always required when the trust assessment method is OpenID Federation and its  Trust Chain contains all the verifiable trust relationships between the parties, the metadata with policy applied and everything about a subject\r\n\r\nIf the Trust Chain is statically available, it just only be validated and checked against the revocation methods of the participants in the infrastructure. This last statement considers the availability of the Trust Chain of every issuer of JWS, as introduced in the issue below:\r\n\r\nhttps://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/33\r\n\r\nA secure Trust Model requires \"signature everywhere\" to satisfy the requirement of non-repudiability or everything issued by an issuer. For this reason the JWKS in OpenID Connect federation are embedded in the signed metadata (Entity Configuration) or made available, and signed, in the signed_jwks_uri\r\n\r\ntoghether with the federation entity discovery and the provision of static trust chain in the JWS header, I'm working on these two DID resolution methods\r\n\r\n**did:openid:example.it:oidc:rp[#$kid-value]**\r\nthis URN is translated to https://example.it/oidc/rp/.well-known/openid-federation and requires a Federation Entity Discovery to build a valid Trust Chain. This doesn't preclude any other OpenID Connect trust resolution method in the present or in the future, giving to the trust resolver the freedom to decide which openid standard to use for the resolution of the keys. Kid value is optional depending to the scope of the did indetifier, if related to a subject or to a key\r\n\r\n**did:openid-trustchain:BASE64({\"kid\": 1, \"trust_chain\": [ ... ]})**\r\nthis URN is translated to a static OpenID Connect Federation Trust Chain, that gives a snapshot of the federation configuration and of the trust relationships between the subject and the Trust Anchor, its metadatas, the metadata policies, trust mark... Everything about the Trust Model, without any federation entity discovery process\r\n\r\nSo, HTTP or DID a Trust Model with OpenID Federation should be always supported in the specs\r\n\r\n",
           "createdAt": "2023-05-13T20:17:44Z",
-          "updatedAt": "2023-05-13T20:19:42Z"
+          "updatedAt": "2023-05-14T16:10:06Z"
+        },
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "NONE",
+          "body": "The .well-known/jwt-issuer mechanism works with any other .well-known location. We should give a couple of examples.\r\n\r\nRegarding OpenID federation, I\u2019m not sure the current revision of the specification would work well with it, given it would require the issuer keys used to sign JWTs to turn up in the entity configuration again (which duplicates the data).\r\n\r\n@peppelinux can you please comment on that?",
+          "createdAt": "2023-05-14T07:52:42Z",
+          "updatedAt": "2023-05-14T07:52:42Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "NONE",
+          "body": "I start over from the requirements I have regarding the long-lived and non-repudiable attestations.\r\n\r\na. An Attestation can be a VC or any kind of signed artifact issued according to a contract.\r\nb. The contract can be bilateral, between two organization or multilateral if we mix thousands of organizations and natural persons according to a defined Trust Model, since the architecture is decentralized I consider only multilateral relationships.\r\n\r\nThe Attestation must be verified in both online and offline flows, this requires that the following statements must be satisfied:\r\n\r\n1. The public key for verification must be attested as reliable by a Trusted Third Party. This implies that the public key MUST be contained in the Attestation together with the proof of its reliability. The reliability proof must be issued by a Trusted Third Party\r\n2. The verifier must verify the digital signature of the attestation, using the public key contained in it, since the public key is signed by a Trusted Third Party and made available in the signed attestation \r\n3. The state of the issuer must be contained in the attestation, since all the information about the issuer is available statically and signed by a Trusted Third Party\r\n4. The Policy regarding the issuer MUST be applied, to give evidence if the issuer behaved correctly at time of issuance\r\n5. even if the public keys may change in the future years, the state of the issuer at the time of the issuance, the applied policies, its jwks, must be always verifiable, since the attestation cannot be repudiated\r\n\r\nconsider that an issuer of an attestation can be one or more of all the following entities:\r\n\r\nI. Wallet Provider issuing a Wallet Instance Attestation\r\nII. Credential Issuer that issues a VC\r\nIII. RP that issues a presentation request\r\nIV. Wallet Instance that issue a signed presentation request or an id token\r\n\r\nAll these requirements are fully satisfied by OpenID Connect Federation Trust Chain, since the JWS trust_chain is going to be registered in the IANA JWS header parameter register.\r\n\r\nThe sole and particular exception is made for the Wallet Instance, since these are not andled by organization but by natural person. In this cases they must present the Wallet Instance Attestation where the Wallet Provider Trust Chain is contained in it. A verifier trusts the wallet instance using the instance attestation, since the trust to the Wallet Provider can be established, statically and in offline flows.\r\n\r\nThe Trust Chain contains all the components listed below:\r\n\r\n- Trust Relationship of the subject (one of the previously listed above entities) with a Trusted Third Party, considering all the entities along the path from the subject to a well-known Trust Anchor. If any available, these are called Trust Intermediates\r\n- The Metadata of the subject at time of the issuance\r\n- The Trust Marks/Compliance-attestations of the subject at time of the issuance\r\n- The Policies published by Trust Anchor and its Intermediates to be applied to the issuer Metadata\r\n- The public keys related to the issuance protocol\r\n- the public keys related to the Trust Model attesting the Trust Relationship and the non revocation of the issuer at time of the issuance\r\n\r\nIt can be validated using the sole public key of the Trust Anchor.\r\n\r\nAll this, that's a lot, is efficiently contained in the Trust Chain, that's a JSON Array of JWS. Each JWS is binded with its siblings by claims, public keys and signatures. Using JWS singed with EC, I still don't have a comparison with X509 in term of storage but it is not small at all. But the point is not the size, but the features and the capabilities we have in the Trust Chain instead of the X509 certificate chain.  \r\n\r\n**Finally the answer to your question is:**\r\n\r\n**Since the public keys are not duplicated because they are self contained in the Entity Configuration (.well-known/openid-federation) and validate through the Trust Chain, the data doesn't require to be duplicated elsewhere**\r\n\r\nAnd I want to continue discussing the requirement of external endpoints for JWKS, below.\r\n\r\nOpenID Connect Federation enables the signed_jwks_uri, then .well-known/jwks can be pointed by this claim, with the sole requirement that its response must be signed, for the highest level of security of the Trust Model\r\n\r\nThe traditional approach based on TLS doesn't give non-repudiability of the attestations, since the jwks may change in the future and since these endpoints are not available in offline flows\r\n\r\nWhile TLS alone may work fine in the traditional digital identity infrastructure, where the trust is prestablished between an RP and an IDP, differently the Identity Wallets requires other paradigms regarding the Trust Establishment, where the concept of scalability, distribution and decentralization should consider how fundamental are the long lived static attestation of trust and how the \"decentralized storage\" requires the trust attestation to avoid the architectural need of a single registry with the historical information about all the issuers\r\n\r\n\r\n\r\n",
+          "createdAt": "2023-05-14T17:27:31Z",
+          "updatedAt": "2023-05-14T22:34:32Z"
         }
       ]
+    },
+    {
+      "number": 42,
+      "id": "I_kwDOJbVClc5l-Sws",
+      "title": "CWT proof requirements",
+      "url": "https://github.com/vcstuff/draft-terbu-sd-jwt-vc/issues/42",
+      "state": "OPEN",
+      "author": "TakahikoKawasaki",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Regarding the proof in a credential request defined in OID4VCI. The \"[Proof Types](https://openid.bitbucket.io/connect/openid-4-verifiable-credential-issuance-1_0.html#name-proof-types)\" section in the current snapshot of the specification lists JWT proof requirements and CWT proof requirements as follows.\r\n\r\n### JWT proof requirements:\r\n\r\n- `typ`\r\n- `alg`\r\n- `kid`\r\n- `jwk`\r\n- `x5c`\r\n- `iss`\r\n- `aud`\r\n- `iat`\r\n- `nonce`\r\n\r\n### CWT proof requirements:\r\n\r\n- Label 1 (`alg`)\r\n- Label 3 (`content type`)\r\n- Label COSE_Key\r\n- Label 33 (`x5chain`)\r\n- Claim Key 3 (`aud`)\r\n- Claim Key 6 (`iat`)\r\n- Claim Key 10 (`Nonce`)\r\n\r\nThe CWT proof does not have requirements that correspond to `kid` and `iss` requirements for the JWT proof. Is this difference intentional?",
+      "createdAt": "2023-05-15T21:06:02Z",
+      "updatedAt": "2023-05-15T21:06:02Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -776,7 +806,7 @@
       "labels": [],
       "body": "I would personally remove it, but will not die on that hill",
       "createdAt": "2023-05-08T01:43:46Z",
-      "updatedAt": "2023-05-13T12:56:13Z",
+      "updatedAt": "2023-05-15T12:04:36Z",
       "baseRepository": "vcstuff/draft-terbu-sd-jwt-vc",
       "baseRefName": "main",
       "baseRefOid": "cc8925f95271ee5df4e011d465fd433b3e635d4e",
@@ -822,6 +852,13 @@
           "body": "I disagree with the request for changes. We don't have to follow VC-JWT mapping. The cleanest is to map iat to ValidFrom.",
           "createdAt": "2023-05-13T12:55:48Z",
           "updatedAt": "2023-05-13T12:56:13Z"
+        },
+        {
+          "author": "awoie",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I disagree with the request for changes. We don't have to follow VC-JWT mapping. The cleanest is to map iat to ValidFrom.\r\n\r\nI see where you are coming from. Would you be ok with the following:\r\n- make `nbf` optional\r\n- in the mapping section: \r\n  - if `nbf` was omitted, use `iat` as default for `ValidFrom`\r\n  - if `nbf` is present, use `nbf` for `ValidFrom`\r\n\r\nIMO, that would be the cleanest.",
+          "createdAt": "2023-05-15T12:04:36Z",
+          "updatedAt": "2023-05-15T12:04:36Z"
         }
       ],
       "reviews": [
