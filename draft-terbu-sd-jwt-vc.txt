@@ -26,25 +26,24 @@ Table of Contents
      1.2.  Terms and Definitions
    2.  Scope
    3.  Use Cases
-   4.  Overview
-   5.  Verifiable Credentials
-     5.1.  Data Format
-       5.1.1.  Header Parameters
-       5.1.2.  Payload
-     5.2.  Example
-     5.3.  Validation Rules and Processing
-       5.3.1.  JWT Issuer Metadata
-   6.  Verifiable Presentations
-     6.1.  Examples
-     6.2.  Validation Rules and Processing
-   7.  Security Considerations
-   8.  Privacy Considerations
-   9.  Relationships to Other Documents
-     9.1.  W3C Verifiable Credential Data Model 2.0
-       9.1.1.  VC Directory
-       9.1.2.  Mapping Algorithm
-   10. Normative References
-   11. Informative References
+   4.  Verifiable Credentials
+     4.1.  Data Format
+       4.1.1.  Header Parameters
+       4.1.2.  Payload
+     4.2.  Example
+     4.3.  Validation Rules and Processing
+       4.3.1.  JWT Issuer Metadata
+   5.  Verifiable Presentations
+     5.1.  Examples
+     5.2.  Validation Rules and Processing
+   6.  Security Considerations
+   7.  Privacy Considerations
+   8.  Relationships to Other Documents
+     8.1.  W3C Verifiable Credential Data Model 2.0
+       8.1.1.  VC Directory
+       8.1.2.  Mapping Algorithm
+   9.  Normative References
+   10. Informative References
    Appendix A.  IANA Considerations
      A.1.  JSON Web Token Claims Registration
      A.2.  Media Types Registry
@@ -163,17 +162,6 @@ Table of Contents
 
 2.  Scope
 
-   TBD
-
-3.  Use Cases
-
-   TBD: explain use cases of the three-party-model.
-
-   TBD: conventional crypt, hardware security, hsm, mobile secure area,
-   compliance with FIPS
-
-4.  Overview
-
    *  This specification defines
 
       -  Data model and media types for Verifiable Credentials and
@@ -183,9 +171,14 @@ Table of Contents
 
       -  Mapping mechanisms to related other data models
 
-      -  ...
+3.  Use Cases
 
-5.  Verifiable Credentials
+   TBD: explain use cases of the three-party-model.
+
+   TBD: conventional crypt, hardware security, hsm, mobile secure area,
+   compliance with FIPS
+
+4.  Verifiable Credentials
 
    This specification defines the media type vc+sd-jwt which describes a
    VC-SD-JWT with the following components:
@@ -198,9 +191,9 @@ Table of Contents
    2.  The full set of SD-JWT Disclosures that contain the claims in
        plain text.
 
-5.1.  Data Format
+4.1.  Data Format
 
-5.1.1.  Header Parameters
+4.1.1.  Header Parameters
 
    The typ header parameter of the SD-JWT MUST be present.  The typ
    value MUST use vc+sd-jwt.  This indicates that the payload of the SD-
@@ -215,7 +208,7 @@ Table of Contents
      "typ": "vc+sd-jwt"
    }
 
-5.1.2.  Payload
+4.1.2.  Payload
 
    VC-SD-JWTs and VP-SD-JWTs can use any claim registered in the "JSON
    Web Token Claims" registry as defined in [RFC7519].
@@ -228,7 +221,7 @@ Table of Contents
    VC-SD-JWTs and VP-SD-JWTs MAY contain additional registered or public
    claims depending on the application.
 
-5.1.2.1.  type claim
+4.1.2.1.  type claim
 
    This specification defines the JWT claim type.  The type claim is
    used to express the type of the JSON object that is secured by the
@@ -241,7 +234,7 @@ Table of Contents
      "type": "SomeType"
    }
 
-5.1.2.2.  Usage of registered JWT Claims
+4.1.2.2.  Usage of registered JWT Claims
 
    The following are non-selectively disclosable registered JWT claims
    that SD-JWTs of VC-SD-JWTs contain for specific purposes:
@@ -297,7 +290,7 @@ Table of Contents
          maintained by the Issuer.  There is no requirement for a
          binding to exist between sub and cnf claims.
 
-5.2.  Example
+4.2.  Example
 
    The following is a non-normative example of a Credential acting as
    the input for the VC-SD-JWT:
@@ -387,7 +380,7 @@ Table of Contents
 
    TBD: add other disclosures.
 
-5.3.  Validation Rules and Processing
+4.3.  Validation Rules and Processing
 
    A Verifier MUST validate an VC-SD-JWT as follows:
 
@@ -407,7 +400,7 @@ Table of Contents
    Additional validation rules MAY apply, but their use is out of the
    scope of this specification.
 
-5.3.1.  JWT Issuer Metadata
+4.3.1.  JWT Issuer Metadata
 
    This specification defines the JWT Issuer Metadata to retrieve the
    JWT Issuer Metadata configuration of the JWT Issuer of the JWT.  The
@@ -478,7 +471,7 @@ Table of Contents
       "jwks_uri":"https://jwt-issuer.example.org/my_public_keys.jwks"
    }
 
-6.  Verifiable Presentations
+5.  Verifiable Presentations
 
    This specification defines the media type vp+sd-jwt which describes
    the VP-SD-JWT with the following components:
@@ -497,7 +490,7 @@ Table of Contents
        the Verifier to require or to not require the Holder to prove
        posessions of the confirmation method.
 
-6.1.  Examples
+5.1.  Examples
 
    The following is a non-normative example of a VP-SD-JWT without
    holder binding:
@@ -509,21 +502,21 @@ Table of Contents
 
    TBD
 
-6.2.  Validation Rules and Processing
+5.2.  Validation Rules and Processing
 
    TBD: same as VC-SD-JWT (-> refer to SD-JWT) + Holder Binding
 
-7.  Security Considerations
+6.  Security Considerations
 
    TBD
 
-8.  Privacy Considerations
+7.  Privacy Considerations
 
    TBD
 
-9.  Relationships to Other Documents
+8.  Relationships to Other Documents
 
-9.1.  W3C Verifiable Credential Data Model 2.0
+8.1.  W3C Verifiable Credential Data Model 2.0
 
    The W3C VCDM 2.0 (see TBD) defines a JSON-LD vocabulary for
    Verifiable Credentials and Verifiable Presentations.  To interop with
@@ -532,13 +525,13 @@ Table of Contents
    vocabulary and data model defined W3C VCDM 2.0 which is based on
    JSON-LD.
 
-9.1.1.  VC Directory
+8.1.1.  VC Directory
 
    This specification registers the media types application/vp+sd-jwt
    and application/vc+sd-jwt in the W3C Verifiable Credentials (VC)
    Directory.
 
-9.1.2.  Mapping Algorithm
+8.1.2.  Mapping Algorithm
 
    The following is a uni-directional transformation algorithm that
    takes in a VC-SD-JWT conformant to this specification and maps it to
@@ -591,7 +584,7 @@ Table of Contents
 
    ####
 
-10.  Normative References
+9.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -607,7 +600,7 @@ Table of Contents
               RFC 7800, DOI 10.17487/RFC7800, April 2016,
               <https://www.rfc-editor.org/info/rfc7800>.
 
-11.  Informative References
+10.  Informative References
 
    [RFC7517]  Jones, M., "JSON Web Key (JWK)", RFC 7517,
               DOI 10.17487/RFC7517, May 2015,
