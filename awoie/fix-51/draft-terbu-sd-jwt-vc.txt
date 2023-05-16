@@ -717,10 +717,10 @@ A.2.2.  application/vp+sd-jwt
 
 Appendix B.  Acknowledgements
 
-   We would like to thank Alen Horvat, Christian Bormann, Torsten
-   Lodderstedt and Kristina Yasuda for their contributions (some of
-   which substantial) to this draft and to the initial set of
-   implementations.
+   We would like to thank Alen Horvat, Christian Bormann, Giuseppe De
+   Marco, Torsten Lodderstedt and Kristina Yasuda for their
+   contributions (some of which substantial) to this draft and to the
+   initial set of implementations.
 
 Appendix C.  Document History
 
